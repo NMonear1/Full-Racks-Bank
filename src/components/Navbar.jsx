@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import "./Navbar.css";
 
 import { useAuth } from "../auth/AuthContext";
 
@@ -7,7 +8,7 @@ export default function Navbar() {
   return (
     <header id="navbar">
       <NavLink id="brand" to="/">
-        <p>Frontend Template</p>
+        <p>Home</p>
       </NavLink>
       <nav>
         {token ? (
@@ -15,6 +16,7 @@ export default function Navbar() {
         ) : (
           <NavLink to="/login">Log in</NavLink>
         )}
+        
       </nav>
     </header>
   );
