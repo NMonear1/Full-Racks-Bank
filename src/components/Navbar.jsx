@@ -1,20 +1,32 @@
-import { NavLink } from "react-router";
 import "./Navbar.css";
 
-import { useAuth } from "../auth/AuthContext";
+export default function BankingNavbar() {
+  const menuItems = ["Checking", "Savings & CDs", "Credit cards", "Loans"];
 
-export default function Navbar() {
-  const { token, logout } = useAuth();
   return (
-    <nav id="navbar">
-      <NavLink id="brand" to="/">
-        <p>Home</p>
-      </NavLink>
-        {token ? (
-          <button onClick={logout}>Log out</button>
-        ) : (
-          <NavLink to="/login">Log in</NavLink>
-        )}
-      </nav>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-content">
+          <div className="logo-container">
+            <img src="/public/fullrackslogo.png" className="logo"></img>
+          </div>
+          <div className="desktop-menu">
+            {menuItems.map((item, index) => (
+              <a key={index} href="#" className="menu-item">
+                {item}
+              </a>
+            ))}
+          </div>
+          <div className="desktop-auth">
+            <a href="#" className="sign-in">
+              Sign in
+            </a>
+            <a href="#" className="open-account">
+              Open account
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }

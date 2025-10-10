@@ -1,6 +1,99 @@
-#navbar {
+.navbar {
+  background-color: rgb(237, 238, 229);
+  box-shadow: 0 1px 3px 0 rgba(1, 49, 1, 0.952), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.navbar-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.navbar-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+.logo-container {
+  flex-shrink: 0;
+  display: flex;
   align-items: center;
-  gap: 8px;
+}
+
+.logo {
+  height: 4.5rem;
+  width: auto;
+}
+
+.desktop-menu {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.menu-item {
+  padding: 0.5rem 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: all 0.4s;
+}
+
+.menu-item:hover {
+  color: #00af5d;
+  background-color: #f9fafb;
+}
+
+.desktop-auth {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sign-in {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sign-in:hover {
+  color: #00b44b;
+}
+
+.open-account {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: #007535;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s;
+}
+
+.open-account:hover {
+  background-color: #00af5d;
+}
+
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+
+  .desktop-menu {
+    display: flex;
+  }
+
+  .desktop-auth {
+    display: flex;
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
 }
