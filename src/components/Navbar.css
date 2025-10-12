@@ -30,6 +30,7 @@
   display: none;
   align-items: center;
   gap: 0.25rem;
+  padding-left: 7.5rem;
 }
 
 .menu-item {
