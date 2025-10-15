@@ -3,9 +3,9 @@ import Layout from "./components/Layout";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Welcome from "./components/Welcome";
-import Account from "./components/account/Account.jsx";
-import Checking from "./components/account/Checking.jsx";
-import Savings from "./components/account/Savings.jsx";
+import Account from "./account/Account.jsx";
+import Checking from "./account/Checking.jsx";
+import Savings from "./account/Savings.jsx";
 import Error404 from "./Error404";
 
 export default function App() {

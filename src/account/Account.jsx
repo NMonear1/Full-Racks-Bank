@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 // import Checking from "./Checking"
 // import Savings from "./Savings"
+// import "./Account.css"
 
 export default function Account() {
   return (
