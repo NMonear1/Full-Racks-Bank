@@ -1,0 +1,48 @@
+.account ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.account-heading {
+  font-size: 2em;
+  color: #e5e7eb;
+  border: 1px solid inherit;
+  background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
+  padding: 2rem 1rem;
+  max-width: webkit-fill-available;
+  padding: 2rem;
+}
+
+.account-p {
+  padding: 10px;
+}
+
+
+
+.account-link {
+  text-decoration: none;
+  color: #06845a;
+}
+
+.account-link:hover .account-h2:hover {
+  color: #0b5e3c;
+}
+
+.account-li {
+  margin: 2rem;
+  padding: 10px;
+  border: 1px solid inherit;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.account-li:hover {
+  background-color: #e0e0e0;
+}
+
+.account-li div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
