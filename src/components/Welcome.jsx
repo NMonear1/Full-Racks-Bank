@@ -1,5 +1,6 @@
 import { CreditCard, Wallet, Home, TrendingUp } from "lucide-react";
 import "./welcomePage.css";
+import { Link } from "react-router";
 
 export default function WelcomePage() {
   const products = [
@@ -15,6 +16,7 @@ export default function WelcomePage() {
         "Mobile banking",
         "Overdraft protection",
       ],
+      link: "/checking"
     },
     {
       title: "Savings Accounts",
@@ -28,6 +30,7 @@ export default function WelcomePage() {
         "FDIC insured",
         "Auto-save options",
       ],
+      link: "/savings"
     },
     {
       title: "Credit Cards",
@@ -41,6 +44,7 @@ export default function WelcomePage() {
         "0% intro APR",
         "Fraud protection",
       ],
+      link: "/creditcard"
     },
     {
       title: "Home Loans",
@@ -101,9 +105,10 @@ export default function WelcomePage() {
                         <li key={i}>✓ {feature}</li>
                       ))}
                     </ul>
-                    <a href="#" className="card-btn">
-                      Apply Now
-                    </a>
+<Link to={product.link || "#"} className="card-btn">
+  Apply Now
+</Link>
+                    
                   </div>
                 </div>
               </div>

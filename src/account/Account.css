@@ -3,35 +3,32 @@
   padding: 0;
 }
 
-h1 {
+.account-heading {
   font-size: 2em;
   color: #e5e7eb;
-  /* text-align: center; */
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem 1rem;
   max-width: webkit-fill-available;
+  padding: 2rem;
 }
 
-main {
-  background: #f5f5f5;
-}
-
-h2,
-p {
+.account-p {
   padding: 10px;
 }
 
-a {
+
+
+.account-link {
   text-decoration: none;
   color: #06845a;
 }
 
-a:hover h2:hover {
+.account-link:hover .account-h2:hover {
   color: #0b5e3c;
 }
 
-.account li {
+.account-li {
   margin: 2rem;
   padding: 10px;
   border: 1px solid inherit;
@@ -40,11 +37,11 @@ a:hover h2:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.account li:hover {
+.account-li:hover {
   background-color: #e0e0e0;
 }
 
-.account li div {
+.account-li div {
   display: flex;
   justify-content: space-between;
   align-items: center;

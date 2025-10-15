@@ -18,6 +18,8 @@ export default function App() {
         <Route path ="/account" element={<Account />} />
         <Route path ="/checking" element={<Checking />} />
         <Route path ="/savings" element={<Savings />} />
+        <Route path ="/creditcard" element={<div>Credit Card Page</div>} />
+        <Route path ="/loans" element={<div>Loans Page</div>} />
         <Route path="*" element={<Error404 />} />
       </Route>
     </Routes>
