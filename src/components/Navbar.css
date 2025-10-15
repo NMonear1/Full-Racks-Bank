@@ -98,3 +98,30 @@
     display: none;
   }
 }
+
+@media (width <= 1024px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+
+  .desktop-menu {
+    display: flex;
+    padding: 0;
+  }
+
+  .desktop-menu a {
+    font-size: 0.8rem;
+  }
+
+  .desktop-auth {
+    display: flex;
+  }
+
+  .desktop-auth a {
+    font-size: 0.8rem;
+  }
+
+  .mobile-menu-button {
+    display: none;
+  }
+}

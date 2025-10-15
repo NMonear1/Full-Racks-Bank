@@ -3,10 +3,9 @@
   padding: 0;
 }
 
-h1 {
+.account-heading {
   font-size: 2em;
   color: #e5e7eb;
-  /* text-align: center; */
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem 1rem;

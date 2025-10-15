@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router";
 import App from "./App.jsx";
 import { AuthProvider } from "./auth/AuthContext.jsx";
 import "./index.css";
-import "./components/account/Account.css"
 
 createRoot(document.getElementById("root")).render(
   <AuthProvider>

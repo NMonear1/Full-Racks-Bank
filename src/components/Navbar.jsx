@@ -1,25 +1,36 @@
 import "./Navbar.css";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
+import { NavLink } from "react-router";
 
 export default function BankingNavbar() {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
 
-  const menuItems = ["Checking", "Savings & CDs", "Credit cards", "Loans"];
+  const menuItems = [
+    { name: "Account", path: "/account" },
+    { name: "Checking", path: "/checking" },
+    { name: "Savings & CDs", path: "/savings" },
+    { name: "Credit cards", path: "/creditcard" },
+    { name: "Loans", path: "/loans" }
+  ];
 
   return (
     <>
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-content">
-            <div className="logo-container">
-              <img src="/public/fullrackslogo.png" className="logo"></img>
-            </div>
+            <NavLink to={"/"} className="logo-container">
+              <img src="/fullrackslogo.png" className="logo"></img>
+            </NavLink>
             <div className="desktop-menu">
               {menuItems.map((item, index) => (
-                <a key={index} href="#" className="menu-item">
-                  {item}
-                </a>
+                <NavLink 
+                  key={index} 
+                  to={item.path} 
+                  className="menu-item"
+                >
+                  {item.name}
+                </NavLink>
               ))}
             </div>
             <div className="desktop-auth">
