@@ -16,7 +16,7 @@ export default function Account() {
               </div>
             </li>
           </Link>
-          <Link to="/savings">
+          <Link to="/savings" className="account-link">
             <li className="account-li">
               <h2 className="account-h2">Savings</h2>
               <div className="account-div">
@@ -25,7 +25,7 @@ export default function Account() {
               </div>
             </li>
           </Link>
-          <Link to="/creditcard">
+          <Link to="/creditcard" className="account-link">
             <li className="account-li">
               <h2 className="account-h2">Credit Card</h2>
               <div className="account-div">

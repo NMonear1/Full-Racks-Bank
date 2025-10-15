@@ -24,7 +24,7 @@
   color: #06845a;
 }
 
-.account-link:hover .account-h2:hover {
+.account-link:hover, .account-h2:hover {
   color: #0b5e3c;
 }
 
