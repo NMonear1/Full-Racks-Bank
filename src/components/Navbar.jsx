@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import LoginForm from "./LoginForm";
+import LoginForm from "../auth/Login";
 import { useState } from "react";
 import { NavLink } from "react-router";
 
@@ -11,7 +11,7 @@ export default function BankingNavbar() {
     { name: "Checking", path: "/checking" },
     { name: "Savings & CDs", path: "/savings" },
     { name: "Credit cards", path: "/creditcard" },
-    { name: "Loans", path: "/loans" }
+    { name: "Loans", path: "/loans" },
   ];
 
   return (
@@ -24,11 +24,7 @@ export default function BankingNavbar() {
             </NavLink>
             <div className="desktop-menu">
               {menuItems.map((item, index) => (
-                <NavLink 
-                  key={index} 
-                  to={item.path} 
-                  className="menu-item"
-                >
+                <NavLink key={index} to={item.path} className="menu-item">
                   {item.name}
                 </NavLink>
               ))}
