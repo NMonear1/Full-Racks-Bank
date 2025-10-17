@@ -1,6 +1,6 @@
-.checking-header h1 {
-      font-size: 2em;
-  color: #e5e7eb;
+.checking-header {
+    display: flex;
+    justify-content: space-between;
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem 1rem;
@@ -8,13 +8,93 @@
   padding: 2rem;
 }
 
-.checking-header div {
+.checking-header h1 {
+      font-size: 2.5rem;
+  color: #e5e7eb;
+}
+
+.checking-info{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 0.5rem;
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid inherit;
   border-radius: 5px;
-  background-color: #fcfcfc;
+  background-color: rgb(237, 238, 229);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.checking-info p {
+  font-size: 1.2rem;
+  font-weight: 550;
+  color: #374151;
+}
+
+.activity {
+  width: 90%;
+  margin: 2rem auto;
+  /* padding: 1rem; */
+  border: 1px solid inherit;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activity header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
+  padding-bottom: 0.5rem;
+  border-radius: 5px 5px 0 0;
+}
+
+.activity header h2 {
+  color: #fdfdfd;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
+
+.activity nav {
+  margin-top: 0;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+}
+
+.activity nav button {
+  list-style-type: none;
+  padding: 15px 5px;
+  background-color: #fcfcfc;
+  border: 1px solid green;
+  flex: 1;
+  border-radius: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activity nav button:hover {
+  background-color: #e0e0e0;
+}
+
+.history {
+  width: 90%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 1px solid inherit;
+}
+
+.history ul {
+  list-style-type: none;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.history li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
