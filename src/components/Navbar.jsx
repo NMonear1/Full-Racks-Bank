@@ -40,7 +40,7 @@ export default function BankingNavbar() {
               >
                 Log in
               </a>
-              <a href="#" className="open-account">
+              <a href="/register" className="open-account">
                 Open account
               </a>
             </div>
