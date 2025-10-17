@@ -26,74 +26,117 @@ export default function Checking() {
 
   return (
     <>
-      <heading className='checking-header'>
+      <header className='checking-header'>
       <h1>Checking</h1>
-      <div>
+      <button>
+        switch account
+      </button>
+      </header>
+      <div className='checking-info'>
       <p>Account number: 5555-55555</p>      
       <p>Routing number: 000000000</p>
       <p>Available balance: $$$$$$</p>
       </div>
-      </heading>
       <section className='activity'>
+        <header>
         <h2>Activity</h2>
+        </header>
         <nav>
-          <ul>
-            <li>
-              <button onClick={handleViewTransactions}>
-                Transactions
-              </button>
-            </li>     
-            <li>
-              <button onClick={handleViewWithdrawals}>
-                Withdrawals
-              </button>
-            </li>
-            <li>
-              <button onClick={handleViewDeposits}>
-                Deposits
-              </button>
-            </li>
-          </ul>
+          <button onClick={handleViewTransactions}>
+            Transactions
+          </button>
+          <button onClick={handleViewWithdrawals}>
+            Withdrawals
+          </button>
+          <button onClick={handleViewDeposits}>
+            Deposits
+          </button>
         </nav>
         
         {showTransactions && (
-          <div>
+          <div className='history'>
             <h3>Transactions</h3>
             <ul>
-              <li>Transaction 1</li>
-              <li>Transaction 2</li>
-              <li>Transaction 3</li>
-              <li>Transaction 4</li>
-              <li>Transaction 5</li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
             </ul>
           </div>
         )}
 
         {showWithdrawals && (
-          <div>
+          <div className='history'>
             <h3>Withdrawal history</h3>
             <ul>
-              <li>Withdrawal 1</li>
-              <li>Withdrawal 2</li>
-              <li>Withdrawal 3</li>
-              <li>Withdrawal 4</li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
             </ul>
           </div>
         )}
         
         {showDeposits && (
-          <div>
+          <div className='history'>
             <h3>Deposit history</h3>
             <ul>
-              <li>Deposit 1</li>
-              <li>Deposit 2</li>
-              <li>Deposit 3</li>
-              <li>Deposit 4</li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
+              <li>
+                <p>amount</p>
+                <p>description</p>
+                <p>date</p>
+              </li>
             </ul>
           </div>
         )}
       </section>
     </>
   );
-}   
-
+}
