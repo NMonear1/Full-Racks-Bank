@@ -1,0 +1,20 @@
+.checking-header h1 {
+      font-size: 2em;
+  color: #e5e7eb;
+  border: 1px solid inherit;
+  background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
+  padding: 2rem 1rem;
+  max-width: webkit-fill-available;
+  padding: 2rem;
+}
+
+.checking-header div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 10px;
+  border: 1px solid inherit;
+  border-radius: 5px;
+  background-color: #fcfcfc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
