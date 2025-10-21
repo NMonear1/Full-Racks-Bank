@@ -1,6 +1,6 @@
-.checking-header {
-    display: flex;
-    justify-content: space-between;
+.account-header {
+  display: flex;
+  justify-content: space-between;
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem 1rem;
@@ -8,12 +8,78 @@
   padding: 2rem;
 }
 
-.checking-header h1 {
-      font-size: 2.5rem;
+.account-header h1 {
+  font-size: 2.5rem;
   color: #e5e7eb;
 }
 
-.checking-info{
+.switch-account {
+  position: relative; 
+  background-color: #ffffff;
+  cursor: pointer;
+  align-self: center;
+  padding: 8px 12px;
+  min-width: 180px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: inline-block; 
+}
+
+.switch-account h3 {
+  margin: 0 auto;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.switch-account:hover {
+  background-color: #ffffff;
+  border-radius: 4px 4px 0 0;
+}
+
+.account-menu {
+  position: absolute; 
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  min-width: 180px;
+  border-radius: 0px 0px 4px 4px;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  z-index: 1000;
+  /* white-space: nowrap; */
+}
+
+.menu-item {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  border-radius: 0;
+  color: #333;
+  width: 100%;
+  transition: background-color 0.2s;
+  font-size: 1rem;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.menu-item:hover {
+  background-color: initial;
+  color: initial;
+}
+
+/* Ensure the header doesn't expand */
+.account-header {
+  position: relative;
+  overflow: visible; /* Allow dropdown to show outside header */
+}
+
+.account-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,7 +91,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.checking-info p {
+.account-info p {
   font-size: 1.2rem;
   font-weight: 550;
   color: #374151;

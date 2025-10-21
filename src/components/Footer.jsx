@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Link } from 'react-router'; 
 import "./Footer.css"
 
 export default function Footer() {
@@ -31,10 +32,10 @@ export default function Footer() {
           <div className="footer-column">
             <h3 className="footer-title">Products</h3>
             <ul className="footer-links">
-              <li><a href="#">Checking Accounts</a></li>
-              <li><a href="#">Savings & CDs</a></li>
-              <li><a href="#">Credit Cards</a></li>
-              <li><a href="#">Loans</a></li>
+              <li><Link to={"/checking"}>Checking Accounts</Link></li>
+              <li><Link to={"/savings"}>Savings & CDs</Link></li>
+              <li><Link to={"/creditcard"}>Credit Cards</Link></li>
+              <li><Link to={"/loans"}>Loans</Link></li>
             </ul>
           </div>
           <div className="footer-column">
