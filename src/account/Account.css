@@ -17,8 +17,6 @@
   padding: 10px;
 }
 
-
-
 .account-link {
   text-decoration: none;
   color: #06845a;
@@ -28,7 +26,8 @@
   margin: 2rem;
 }
 
-.account-link:hover, .account-h2:hover {
+.account-link:hover,
+.account-h2:hover {
   color: #0b5e3c;
 }
 
@@ -49,4 +48,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.account-link-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.account-li-disabled {
+  background-color: #f3f4f6;
+}
+
+.coming-soon {
+  font-style: italic;
+  color: #6b7280;
+  font-size: 1rem;
 }
