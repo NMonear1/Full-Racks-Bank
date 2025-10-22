@@ -105,7 +105,7 @@ export default function WelcomePage() {
                         <li key={i}>✓ {feature}</li>
                       ))}
                     </ul>
-<Link to={product.link} className="card-btn">
+<Link to={"./register"} className="card-btn">
   Apply Now
 </Link>
                     

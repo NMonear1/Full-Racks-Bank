@@ -10,10 +10,10 @@ export default function BankingNavbar() {
   const { token, logout } = useAuth();
 
   const menuItems = [
-    { name: "Checking", path: "/checking" },
-    { name: "Savings & CDs", path: "/savings" },
-    { name: "Credit cards", path: "/creditcard" },
-    { name: "Loans", path: "/loans" },
+    { name: "Checking", path: "/account/checking" },
+    { name: "Savings & CDs", path: "/account/savings" },
+    { name: "Credit cards", path: "/account/creditcard" },
+    { name: "Loans", path: "/account/loans" },
   ];
 
   useEffect(() => {
