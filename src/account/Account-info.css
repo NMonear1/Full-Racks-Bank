@@ -1,11 +1,13 @@
 .account-header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem 1rem;
   max-width: webkit-fill-available;
   padding: 2rem;
+  padding-bottom: 1rem;
 }
 
 .account-header h1 {
@@ -13,10 +15,38 @@
   color: #e5e7eb;
 }
 
+.account-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.account-nav a {
+  position: relative; 
+  background-color: #ffffff;
+  cursor: pointer;
+  align-self: center;
+  padding: 8px 12px;
+  min-width: 180px;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: inline-block; 
+  text-decoration: none;
+  color: #374151;
+}
+
+.account-nav a:hover {
+  background-color: #ebebeb;
+}
+
 .switch-account {
   position: relative; 
   background-color: #ffffff;
   cursor: pointer;
+  height: 37.5px;
   align-self: center;
   padding: 8px 12px;
   min-width: 180px;
@@ -73,10 +103,9 @@
   color: initial;
 }
 
-/* Ensure the header doesn't expand */
 .account-header {
   position: relative;
-  overflow: visible; /* Allow dropdown to show outside header */
+  overflow: visible; 
 }
 
 .account-info {
@@ -100,7 +129,6 @@
 .activity {
   width: 90%;
   margin: 2rem auto;
-  /* padding: 1rem; */
   border: 1px solid inherit;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);

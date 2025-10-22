@@ -32,10 +32,10 @@ export default function Footer() {
           <div className="footer-column">
             <h3 className="footer-title">Products</h3>
             <ul className="footer-links">
-              <li><Link to={"/checking"}>Checking Accounts</Link></li>
-              <li><Link to={"/savings"}>Savings & CDs</Link></li>
-              <li><Link to={"/creditcard"}>Credit Cards</Link></li>
-              <li><Link to={"/loans"}>Loans</Link></li>
+              <li><Link to={"/account/checking"}>Checking Accounts</Link></li>
+              <li><Link to={"/account/savings"}>Savings & CDs</Link></li>
+              <li><Link to={"/account/creditcard"}>Credit Cards</Link></li>
+              <li><Link to={"/account/loans"}>Loans</Link></li>
             </ul>
           </div>
           <div className="footer-column">

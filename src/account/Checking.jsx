@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { NavLink } from "react-router";
+import { useAuth } from "../auth/AuthContext";
 import "./Account-info.css";
 
 export default function Checking() {
+  const { token, user } = useAuth();
+
   const [showTransactions, setShowTransactions] = useState(false);
   const [showDeposits, setShowDeposits] = useState(false);
   const [showWithdrawals, setShowWithdrawals] = useState(false);
@@ -26,10 +30,26 @@ export default function Checking() {
     setShowDeposits(false);
   };
 
+  if (!token || !user) {
+    return (
+      <div className="login-prompt">
+        <h1>Please Log In</h1>
+        <p>You need to be logged in to view your checking account.</p>
+        <Link to="/login" className="login-link">
+          Go to Login Page
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <>
       <header className="account-header">
         <h1>Checking</h1>
+              <nav className="account-nav">
+        <NavLink to="/account" className="back-to-account">
+          <h3>&larr; Back to Account Summary</h3>
+        </NavLink>
         <menu
           className="switch-account"
           onMouseEnter={() => setShowAccountMenu(true)}
@@ -38,15 +58,16 @@ export default function Checking() {
           <h3>Switch Account</h3>
           {showAccountMenu && (
             <div className="account-menu">
-              <Link to={"/savings"} className="menu-item">
+              <Link to={"/account/savings"} className="menu-item">
                 Savings Account
               </Link>
-              <Link to={"/creditcard"} className="menu-item">
+              <Link to={"/account/creditcard"} className="menu-item">
                 Credit Card
               </Link>
             </div>
           )}
         </menu>
+      </nav>
       </header>
       <div className="account-info">
         <p>Account number: 5555-55555</p>

@@ -1,3 +1,12 @@
+.account-nav {
+display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    align-items: center;
+}
+
+
+
 .account ul {
   list-style-type: none;
   padding: 0;
