@@ -16,7 +16,7 @@ export default function WelcomePage() {
         "Mobile banking",
         "Overdraft protection",
       ],
-      link: "/checking"
+      link: "/checking",
     },
     {
       title: "Savings Accounts",
@@ -30,7 +30,7 @@ export default function WelcomePage() {
         "FDIC insured",
         "Auto-save options",
       ],
-      link: "/savings"
+      link: "/savings",
     },
     {
       title: "Credit Cards",
@@ -44,7 +44,7 @@ export default function WelcomePage() {
         "0% intro APR",
         "Fraud protection",
       ],
-      link: "/creditcard"
+      link: "/creditcard",
     },
     {
       title: "Home Loans",
@@ -70,7 +70,7 @@ export default function WelcomePage() {
             Banking that works for you. Simple, secure, and always by your side.
           </p>
           <div className="hero-buttons">
-            <a href="#" className="hero-btn-primary">
+            <a href="/register" className="hero-btn-primary">
               Get Started
             </a>
             <a href="#" className="hero-btn-secondary">
@@ -105,10 +105,9 @@ export default function WelcomePage() {
                         <li key={i}>✓ {feature}</li>
                       ))}
                     </ul>
-<Link to={"./register"} className="card-btn">
-  Apply Now
-</Link>
-                    
+                    <Link to={"./register"} className="card-btn">
+                      Apply Now
+                    </Link>
                   </div>
                 </div>
               </div>
