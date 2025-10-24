@@ -10,32 +10,27 @@
   padding: 0;
 }
 
-/* Remove padding-bottom when credit score is shown */
 .no-padding-bottom {
   max-height: 828px;
   padding-bottom: 0 !important;
 }
 
-/* Or if you prefer a more specific approach */
-header.no-padding-bottom {
-  padding-bottom: 0;
-}
-
 .account header {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Changed from space-between */
+  justify-content: flex-start; 
   margin-bottom: 2rem;
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem;
   max-width: webkit-fill-available;
   margin-bottom: 2rem;
-  height: auto; /* Changed from fixed 200px */
-  min-height: 2rem; /* Ensures minimum height */
+  height: auto; 
+  min-height: 2rem; 
   max-height: none;
   overflow: visible;
-  transition: height 0.3s ease; /* Smooth transition */
+  transition: height 0.3s ease; 
+  padding-bottom: 2rem;
 }
 
 .account-heading {
@@ -65,7 +60,7 @@ header.no-padding-bottom {
 
 .no-padding-bottom .credit-score-toggle-btn {
   background-color: #ffffff;
-  border-bottom: 1px solid rgb(244, 244, 244); /* Light border to connect */
+  border-bottom: 1px solid rgb(244, 244, 244);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -102,6 +97,7 @@ header.no-padding-bottom {
   font-size: 1.2rem;
   padding: 2rem;
   margin: 2rem 2rem;
+  margin-bottom: 0;
 }
 
 .account-item .account-div {
@@ -113,8 +109,8 @@ header.no-padding-bottom {
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   color: white;
   padding: 1rem 2rem;
-  margin: -2rem -2rem 1rem -2rem; /* Negative margins to extend to container edges */
-  border-radius: 5px 5px 0 0; /* Only round top corners */
+  margin: -2rem -2rem 1rem -2rem; 
+  border-radius: 5px 5px 0 0; 
 }
 
 .account-link:hover .account-h2 {
@@ -350,6 +346,7 @@ header.no-padding-bottom {
   background-color: transparent; 
   margin-right: 5rem;
   background-color: #f0fdf4;
+  margin-top: 2rem;
 }
 
 .account-link-open .account-div {
