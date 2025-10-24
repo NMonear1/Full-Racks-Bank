@@ -81,7 +81,6 @@ const handleSignUpForCreditTracking = async () => {
     return (
       <div className="credit-score-card">
         <h3>Credit Score</h3>
-        <p>Get started with credit monitoring</p>
         <button 
           onClick={handleSignUpForCreditTracking}
           disabled={isUpdating}

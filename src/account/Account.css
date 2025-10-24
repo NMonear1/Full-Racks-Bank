@@ -12,7 +12,7 @@
 
 /* Remove padding-bottom when credit score is shown */
 .no-padding-bottom {
-    max-height: 828px;
+  max-height: 828px;
   padding-bottom: 0 !important;
 }
 
@@ -30,15 +30,13 @@ header.no-padding-bottom {
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem;
   max-width: webkit-fill-available;
-  margin-bottom: 0;
+  margin-bottom: 2rem;
   height: auto; /* Changed from fixed 200px */
   min-height: 2rem; /* Ensures minimum height */
   max-height: none;
   overflow: visible;
   transition: height 0.3s ease; /* Smooth transition */
 }
-
-
 
 .account-heading {
   font-size: 2.5rem;
@@ -76,11 +74,9 @@ header.no-padding-bottom {
   background-color: #eeeeee;
 }
 
-
 .account-p {
   padding: 10px;
 }
-
 
 .account-card-wrapper {
   margin: 0 auto;
@@ -94,8 +90,6 @@ header.no-padding-bottom {
   font-weight: 600;
   font-size: 1.2rem;
   padding: inherit;
-  margin: inherit;  
-  margin: 0.5rem 2rem;
   border: 1px solid inherit;
   border-radius: 5px;
   background-color: #f9f9f9;
@@ -107,7 +101,7 @@ header.no-padding-bottom {
   font-weight: 600;
   font-size: 1.2rem;
   padding: 2rem;
-  margin: 2rem;
+  margin: 2rem 2rem;
 }
 
 .account-item .account-div {
@@ -124,12 +118,10 @@ header.no-padding-bottom {
 }
 
 .account-link:hover .account-h2 {
-    background:linear-gradient(135deg, #138e40 0%, #166534 100%);;
-
+  background: linear-gradient(135deg, #138e40 0%, #166534 100%);
 }
 
-.account-link:hover 
-{
+.account-link:hover {
   background-color: rgb(243, 243, 243);
 }
 
@@ -142,10 +134,6 @@ header.no-padding-bottom {
   opacity: 0.6;
 }
 
-.account-li-disabled {
-  background-color: #f3f4f6;
-}
-
 .coming-soon {
   font-style: italic;
   color: #6b7280;
@@ -154,20 +142,6 @@ header.no-padding-bottom {
 
 .account-link-open {
   cursor: default;
-}
-
-.account-li-open {
-  background-color: #f0fdf4;
-  border: 2px dashed #16a34a;
-}
-
-.account-link-open {
-  cursor: default;
-}
-
-.account-li-open {
-  background-color: #f0fdf4;
-  border: 2px dashed #16a34a;
 }
 
 .open-account-btn {
@@ -356,4 +330,57 @@ header.no-padding-bottom {
 
 .dropdown-item-danger:hover {
   background-color: #fee2e2;
+}
+
+.account-link-open {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0.5rem 2rem;
+  border: 2px dashed #16a34a; 
+  border-radius: 7px;
+  background-color: #f0fdf4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  height: fit-content;
+  width: 100%;
+  color: #038831;
+  padding: 2rem; 
+  cursor: default;
+  overflow: hidden;
+  background-color: transparent; 
+  margin-right: 5rem;
+  background-color: #f0fdf4;
+}
+
+.account-link-open .account-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  margin: 0 -2rem -2rem -2rem; /* Negative margins to extend to container edges */
+  background-color: #f0fdf4;
+}
+
+.account-link-open .account-h2 {
+  background: linear-gradient(135deg, #49ad6e 0%, #51986d 100%);
+}
+
+.account-link-open:hover .account-h2 {
+  background: linear-gradient(135deg, #3a985c 0%, #40835b 100%);
+}
+
+.account-link-open:hover, .account-link-open:hover .account-div {
+  background-color: #e5f8ec;
+  border-color: #15803d;
+}
+
+.account-link-open:hover p {
+  color: #0d6c2e;
+}
+
+.account-link-disabled {
+  margin-right: 5rem;
+}
+
+.account-card-wrapper {
+  margin-bottom: 2rem;
 }
