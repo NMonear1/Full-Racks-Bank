@@ -7,7 +7,7 @@
   padding: 2rem 1rem;
   max-width: webkit-fill-available;
   padding: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .account-header h1 {
@@ -20,7 +20,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .account-nav a {

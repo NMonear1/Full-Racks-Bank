@@ -9,7 +9,6 @@ export default function AccountInfo() {
   const navigate = useNavigate();
 
   const [account, setAccount] = useState(null);
-  // const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showTransactions, setShowTransactions] = useState(false);
@@ -32,6 +31,7 @@ export default function AccountInfo() {
 
   const fetchAccountData = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_API}/account/${accountId}`,
         {
@@ -47,6 +47,7 @@ export default function AccountInfo() {
 
       const data = await response.json();
       setAccount(data);
+      setError("");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -100,18 +101,6 @@ export default function AccountInfo() {
     return accountNumber.slice(-4).padStart(accountNumber.length, "*");
   };
 
-  if (loading) {
-    return <div className="loading">Loading account...</div>;
-  }
-
-  if (error) {
-    return <div className="error">Error: {error}</div>;
-  }
-
-  if (!account) {
-    return <div className="error">Account not found</div>;
-  }
-
   return (
     <>
       <header className="account-header">
@@ -123,7 +112,7 @@ export default function AccountInfo() {
           <Link to="/account" className="back-to-account">
             <h3>&larr; Back to Account Summary</h3>
           </Link>
-          {userAccounts.length > 0 && (
+          {userAccounts.length > 0 && !loading && !error && (
             <menu
               className="switch-account"
               onMouseEnter={() => setShowAccountMenu(true)}
@@ -257,39 +246,71 @@ export default function AccountInfo() {
           <button onClick={handleViewDeposits}>Deposits</button>
         </nav>
 
-        {showTransactions && (
-          <div className="history">
-            <h3>Transactions</h3>
-            <ul>
-              <li>
-                <p>Coming soon - transaction history</p>
-              </li>
-            </ul>
-          </div>
-        )}
+      {loading && (
+        <div className="loading">Loading account...</div>
+      )}
 
-        {showWithdrawals && (
-          <div className="history">
-            <h3>Withdrawal history</h3>
-            <ul>
-              <li>
-                <p>Coming soon - withdrawal history</p>
-              </li>
-            </ul>
-          </div>
-        )}
+      {error && (
+        <div className="error">Error: {error}</div>
+      )}
 
-        {showDeposits && (
-          <div className="history">
-            <h3>Deposit history</h3>
-            <ul>
-              <li>
-                <p>Coming soon - deposit history</p>
-              </li>
-            </ul>
+      {!account && !loading && !error && (
+        <div className="error">Account not found</div>
+      )}
+
+      {!loading && !error && account && (
+        <>
+          <div className="account-info">
+            <p>Account number: {formatAccountNumber(account.account_number)}</p>
+            <p>Routing number: {account.routing_number}</p>
+            <p>Available balance: {formatBalance(account.balance)}</p>
           </div>
-        )}
-      </section>
+          
+          <section className="activity">
+            <header>
+              <h2>Activity</h2>
+            </header>
+            <nav>
+              <button onClick={handleViewTransactions}>Transactions</button>
+              <button onClick={handleViewWithdrawals}>Withdrawals</button>
+              <button onClick={handleViewDeposits}>Deposits</button>
+            </nav>
+
+            {showTransactions && (
+              <div className="history">
+                <h3>Transactions</h3>
+                <ul>
+                  <li>
+                    <p>Coming soon - transaction history</p>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            {showWithdrawals && (
+              <div className="history">
+                <h3>Withdrawal history</h3>
+                <ul>
+                  <li>
+                    <p>Coming soon - withdrawal history</p>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            {showDeposits && (
+              <div className="history">
+                <h3>Deposit history</h3>
+                <ul>
+                  <li>
+                    <p>Coming soon - deposit history</p>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </section>
+        </>
+      )}
     </>
   );
 }
