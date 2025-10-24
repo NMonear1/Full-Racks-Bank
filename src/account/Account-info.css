@@ -24,7 +24,7 @@
 }
 
 .account-nav a {
-  position: relative; 
+  position: relative;
   background-color: #ffffff;
   cursor: pointer;
   align-self: center;
@@ -33,7 +33,7 @@
   border: none;
   border-radius: 4px;
   transition: background-color 0.2s;
-  display: inline-block; 
+  display: inline-block;
   text-decoration: none;
   color: #374151;
 }
@@ -43,7 +43,7 @@
 }
 
 .switch-account {
-  position: relative; 
+  position: relative;
   background-color: #ffffff;
   cursor: pointer;
   height: 37.5px;
@@ -52,7 +52,7 @@
   min-width: 180px;
   border-radius: 4px;
   transition: background-color 0.2s;
-  display: inline-block; 
+  display: inline-block;
 }
 
 .switch-account h3 {
@@ -67,7 +67,7 @@
 }
 
 .account-menu {
-  position: absolute; 
+  position: absolute;
   top: 100%;
   left: 0;
   background: white;
@@ -105,7 +105,7 @@
 
 .account-header {
   position: relative;
-  overflow: visible; 
+  overflow: visible;
 }
 
 .account-info {
@@ -191,4 +191,141 @@
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+}
+
+.balance-card {
+  text-align: center;
+  background: linear-gradient(135deg, #f0f4d9 0%, #e3edbc 100%);
+  color: #166534;
+  padding: 25px;
+  border-radius: 16px;
+  margin: 30px auto;
+  max-width: 60%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 2s ease;
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* Floating & hover effect */
+.balance-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #e3edbc 0%, #f0f4d9 100%);
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.balance-card h2 {
+  margin-bottom: 12px;
+  font-size: 1.6rem;
+}
+
+.balance-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.action-btn {
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Overlay */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Form Content */
+.form-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.form-content h3 {
+  margin-bottom: 1rem;
+}
+
+.form-content input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #22c55e;
+}
+
+.close-form {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-form:hover {
+  color: #e53e3e;
 }

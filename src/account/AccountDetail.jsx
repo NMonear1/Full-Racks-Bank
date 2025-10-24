@@ -16,6 +16,9 @@ export default function AccountInfo() {
   const [showWithdrawals, setShowWithdrawals] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [userAccounts, setUserAccounts] = useState([]);
+  const [showDepositsForm, setShowDepositsForm] = useState(false);
+  const [showWithdrawalsForm, setShowWithdrawalsForm] = useState(false);
+  const [showSendMoneyForm, setShowSendMoneyForm] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -102,10 +105,8 @@ export default function AccountInfo() {
     <>
       <header className="account-header">
         <h1>
-          {account?.type 
-            ? account.type.charAt(0).toUpperCase() + account.type.slice(1)
-            : "Account Details"
-          }
+          {account.type.charAt(0).toUpperCase() + account.type.slice(1)} -{" "}
+          {formatAccountNumber(account.account_number)}
         </h1>
         <nav className="account-nav">
           <Link to="/account" className="back-to-account">
@@ -136,6 +137,114 @@ export default function AccountInfo() {
           )}
         </nav>
       </header>
+      <div className="account-info">
+        <p>Account number: {formatAccountNumber(account.account_number)}</p>
+        <p>Routing number: {account.routing_number}</p>
+      </div>
+      <div className="balance-card">
+        <h2>Account Balance</h2>
+        <p className="balance-amount">{formatBalance(account.balance)}</p>
+      </div>
+      <div className="action-buttons">
+        <button
+          className="action-btn"
+          onClick={() => setShowDepositsForm(true)}
+        >
+          Make a Deposit
+        </button>
+        <button
+          className="action-btn"
+          onClick={() => setShowWithdrawalsForm(true)}
+        >
+          Pay a Bill
+        </button>
+        <button
+          className="action-btn"
+          onClick={() => setShowSendMoneyForm(true)}
+        >
+          Send Money
+        </button>
+      </div>
+      {showDepositsForm && (
+        <div
+          className="form-overlay"
+          onClick={() => setShowDepositsForm(false)}
+        >
+          <div className="form-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-form"
+              onClick={() => setShowDepositsForm(false)}
+            >
+              X
+            </button>
+            <h3 className="form-title">Deposit Funds</h3>
+            <input type="number" placeholder="Amount" />
+            <button
+              className="submit-btn"
+              onClick={() => alert("Deposit successful")}
+            >
+              Submit Deposit
+            </button>
+          </div>
+        </div>
+      )}
+      {showWithdrawalsForm && (
+        <div
+          className="form-overlay"
+          onClick={() => setShowWithdrawalsForm(false)}
+        >
+          <div className="form-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-form"
+              onClick={() => setShowWithdrawalsForm(false)}
+            >
+              X
+            </button>
+            <h3 className="form-title">Pay a Bill</h3>
+            <input type="number" placeholder="Amount" />
+            <input type="text" placeholder="Payee" />
+            <button
+              className="submit-btn"
+              onClick={() => alert("Payment successful")}
+            >
+              Submit Payment
+            </button>
+          </div>
+        </div>
+      )}
+      {showSendMoneyForm && (
+        <div
+          className="form-overlay"
+          onClick={() => setShowSendMoneyForm(false)}
+        >
+          <div className="form-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="close-form"
+              onClick={() => setShowSendMoneyForm(false)}
+            >
+              X
+            </button>
+            <h3 className="form-title">Send Money</h3>
+            <input type="number" placeholder="Amount" />
+            <input type="text" placeholder="Recipient Account Number" />
+            <button
+              className="submit-btn"
+              onClick={() => alert("Money sent successfully")}
+            >
+              Send Money
+            </button>
+          </div>
+        </div>
+      )}
+      <section className="activity">
+        <header>
+          <h2>Activity</h2>
+        </header>
+        <nav>
+          <button onClick={handleViewTransactions}>Transactions</button>
+          <button onClick={handleViewWithdrawals}>Withdrawals</button>
+          <button onClick={handleViewDeposits}>Deposits</button>
+        </nav>
 
       {loading && (
         <div className="loading">Loading account...</div>
