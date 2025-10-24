@@ -153,32 +153,28 @@ export default function Account() {
         {/* Only show content when not loading and no error */}
         {!loading && !error && (
           <>
-            {/* {showCreditScore && <CreditScore />} */}
-            {/* {!user?.creditscore ? (<CreditScore />) : null} */}
+            {!user?.creditscore ? <CreditScore /> : null}
 
             <ul>
-             {accounts.map((account) => (
-  <div key={account.id} className="account-card-wrapper">
-    <Link
-      to={`/account/${account.id}`}
-      className="account-link"
-    >
-      <div className="account-item"> 
-        <h2 className="account-h2">
-          {account.type.charAt(0).toUpperCase() +
-            account.type.slice(1)}
-        </h2>
-        <div className="account-div">
-          <p className="account-p">
-            Account number:{" "}
-            {formatAccountNumber(account.account_number)}
-          </p>
-          <p className="account-p">
-            Available balance: {formatBalance(account.balance)}
-          </p>
-        </div>
-      </div>
-    </Link>
+              {accounts.map((account) => (
+                <div key={account.id} className="account-card-wrapper">
+                  <Link to={`/account/${account.id}`} className="account-link">
+                    <div className="account-item">
+                      <h2 className="account-h2">
+                        {account.type.charAt(0).toUpperCase() +
+                          account.type.slice(1)}
+                      </h2>
+                      <div className="account-div">
+                        <p className="account-p">
+                          Account number:{" "}
+                          {formatAccountNumber(account.account_number)}
+                        </p>
+                        <p className="account-p">
+                          Available balance: {formatBalance(account.balance)}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
 
                   <div className="account-options">
                     <button
@@ -211,47 +207,56 @@ export default function Account() {
               ))}
 
               {!hasChecking && (
-                <div className="account-link account-link-open">
-                  <li className="account-li account-li-open">
-                    <h2 className="account-h2">Checking</h2>
-                    <div className="account-div">
-                      <button
-                        onClick={() => openNewAccount("checking")}
-                        className="open-account-btn"
-                      >
-                        Open Checking Account
-                      </button>
+                <div className="account-card-wrapper">
+                  <div className="account-link account-link-open">
+                    <div className="account-item">
+                      <h2 className="account-h2">Checking</h2>
+                      <div className="account-div">
+                         <p className="account-p">
+                          Manage your daily expenses
+                        </p>
+                        <button
+                          onClick={() => openNewAccount("checking")}
+                          className="open-account-btn"
+                        >
+                          Open Checking Account
+                        </button>
+                      </div>
                     </div>
-                  </li>
+                  </div>
                 </div>
               )}
 
               {!hasSavings && (
-                <div className="account-link account-link-open">
-                  <li className="account-li account-li-open">
-                    <h2 className="account-h2">Savings</h2>
-                    <div className="account-div">
-                      <p className="account-p">
-                        Start saving with competitive rates
-                      </p>
-                      <button
-                        onClick={() => openNewAccount("savings")}
-                        className="open-account-btn"
-                      >
-                        Open Savings Account
-                      </button>
+                <div className="account-card-wrapper">
+                  <div className="account-link account-link-open">
+                    <div className="account-item">
+                      <h2 className="account-h2">Savings</h2>
+                      <div className="account-div">
+                        <p className="account-p">
+                          Start saving with competitive rates
+                        </p>
+                        <button
+                          onClick={() => openNewAccount("savings")}
+                          className="open-account-btn"
+                        >
+                          Open Savings Account
+                        </button>
+                      </div>
                     </div>
-                  </li>
+                  </div>
                 </div>
               )}
 
-              <div className="account-link account-link-disabled">
-                <li className="account-li account-li-disabled">
-                  <h2 className="account-h2">Credit Card</h2>
-                  <div className="account-div">
-                    <p className="account-p coming-soon">Coming Soon</p>
-                  </div>
-                </li>
+              <div className="account-card-wrapper">
+                <div className="account-link account-link-disabled">
+                  <li className="account-li account-li-disabled">
+                    <h2 className="account-h2">Credit Card</h2>
+                    <div className="account-div">
+                      <p className="account-p coming-soon">Coming Soon</p>
+                    </div>
+                  </li>
+                </div>
               </div>
             </ul>
 
