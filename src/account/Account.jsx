@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { useAuth } from "../auth/AuthContext";
-import { MoreVertical } from "lucide-react"; // Add this import
+import { MoreVertical } from "lucide-react";
 import "./Account.css";
 
 export default function Account() {
