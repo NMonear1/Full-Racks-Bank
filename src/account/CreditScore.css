@@ -1,0 +1,65 @@
+.credit-score-card {
+  background: white;
+  border-radius: 0; /* Remove border radius for full width */
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  margin-bottom: 0;
+  
+  /* Full width breakout */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  
+  /* Ensure proper box model */
+  box-sizing: border-box;
+}
+.credit-score-card h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  text-align: center;
+}
+
+.credit-score-display {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.credit-score-number {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.credit-score-rating {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.credit-score-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #666;
+}
+
+.credit-score-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.credit-score-progress {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}

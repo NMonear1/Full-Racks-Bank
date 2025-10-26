@@ -7,13 +7,14 @@ import { useAuth } from "../auth/AuthContext";
 export default function BankingNavbar() {
   const [loginFormOpen, setLoginFormOpen] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const { token, logout } = useAuth();
 
   const menuItems = [
-    { name: "Checking", path: "/account/checking" },
-    { name: "Savings & CDs", path: "/account/savings" },
-    { name: "Credit cards", path: "/account/creditcard" },
-    { name: "Loans", path: "/account/loans" },
+    { name: "Checking" },
+    { name: "Savings & CDs" },
+    { name: "Credit cards" },
+    { name: "Loans" },
   ];
 
   useEffect(() => {
@@ -44,6 +45,20 @@ export default function BankingNavbar() {
     window.location.href = "/";
   };
 
+  const handleMenuClick = (e) => {
+    e.preventDefault();
+    setShowLoginPrompt(true);
+  };
+
+  const handleLoginPromptClose = () => {
+    setShowLoginPrompt(false);
+  };
+
+  const handleLoginPromptConfirm = () => {
+    setShowLoginPrompt(false);
+    setLoginFormOpen(true);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -54,10 +69,15 @@ export default function BankingNavbar() {
 
           {!token && (
             <div className="desktop-menu">
-              {menuItems.map((item, index) => (
-                <NavLink key={index} to={item.path} className="menu-item">
+              {menuItems.map((item, idx) => (
+                <a
+                  key={idx}
+                  href="#"
+                  className="menu-item"
+                  onClick={(e) => handleMenuClick(e, item)}
+                >
                   {item.name}
-                </NavLink>
+                </a>
               ))}
             </div>
           )}
@@ -85,7 +105,7 @@ export default function BankingNavbar() {
                 <span className="welcome-text">
                   Welcome {userData?.firstname}
                 </span>
-                <NavLink to="/account" className="account-link">
+                <NavLink to="/account" className="account-navlink">
                   My Account
                 </NavLink>
                 <button onClick={handleLogout} className="logout-btn">
@@ -96,10 +116,39 @@ export default function BankingNavbar() {
           </div>
         </div>
       </div>
+
       <LoginForm
         isOpen={loginFormOpen}
         onClose={() => setLoginFormOpen(false)}
       />
+
+      {showLoginPrompt && (
+        <div className="login-prompt-overlay" onClick={handleLoginPromptClose}>
+          <div
+            className="login-prompt-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="login-prompt-title">Login Required</h3>
+            <p className="login-prompt-message">
+              Please log in to access our banking services.
+            </p>
+            <div className="login-prompt-buttons">
+              <button
+                className="login-prompt-btn login-prompt-cancel"
+                onClick={handleLoginPromptClose}
+              >
+                Cancel
+              </button>
+              <button
+                className="login-prompt-btn login-prompt-confirm"
+                onClick={handleLoginPromptConfirm}
+              >
+                Log In
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

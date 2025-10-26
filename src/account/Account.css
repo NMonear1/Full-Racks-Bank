@@ -10,60 +10,124 @@
   padding: 0;
 }
 
+.no-padding-bottom {
+  max-height: 828px;
+  padding-bottom: 0 !important;
+}
+
+.account header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  margin-bottom: 2rem;
+  border: 1px solid inherit;
+  background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
+  padding: 2rem;
+  max-width: webkit-fill-available;
+  margin-bottom: 2rem;
+  height: auto; 
+  min-height: 2rem; 
+  max-height: none;
+  overflow: visible;
+  transition: height 0.3s ease; 
+  padding-bottom: 2rem;
+}
+
 .account-heading {
   font-size: 2.5rem;
   color: #e5e7eb;
-  border: 1px solid inherit;
-  background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
-  padding: 2rem 1rem;
-  max-width: webkit-fill-available;
-  padding: 2rem;
+}
+
+.credit-score-toggle-btn {
+  background-color: #ffffff;
+  color: rgb(33, 33, 33);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  width: fit-content;
+  min-width: 10rem;
+}
+
+.credit-score-toggle-btn:hover {
+  background-color: #eeeeee;
+}
+
+.no-padding-bottom .credit-score-toggle-btn {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgb(244, 244, 244);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.no-padding-bottom .credit-score-toggle-btn:hover {
+  background-color: #eeeeee;
 }
 
 .account-p {
   padding: 10px;
 }
 
+.account-card-wrapper {
+  margin: 0 auto;
+}
+
+/* .account-li {
+
+} */
+
 .account-link {
-  text-decoration: none;
-  color: #06845a;
   font-weight: 600;
   font-size: 1.2rem;
-  padding: 2rem;
-  margin: 2rem;
-}
-
-.account-link:hover,
-.account-h2:hover {
-  color: #0b5e3c;
-}
-
-.account-li {
-  margin: 0.5rem 2rem;
-  padding: 2rem;
+  padding: inherit;
   border: 1px solid inherit;
   border-radius: 5px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  height: fit-content;
+  width: 100%;
+  color: #038831;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 2rem;
+  margin: 2rem 2rem;
+  margin-bottom: 0;
 }
 
-.account-li:hover {
-  background-color: #e0e0e0;
-}
-
-.account-li div {
+.account-item .account-div {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.account-h2 {
+  background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
+  color: white;
+  padding: 1rem 2rem;
+  margin: -2rem -2rem 1rem -2rem; 
+  border-radius: 5px 5px 0 0; 
+}
+
+.account-link:hover .account-h2 {
+  background: linear-gradient(135deg, #138e40 0%, #166534 100%);
+}
+
+.account-link:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+.account-link:hover p {
+  color: #016725;
 }
 
 .account-link-disabled {
   cursor: not-allowed;
   opacity: 0.6;
-}
-
-.account-li-disabled {
-  background-color: #f3f4f6;
 }
 
 .coming-soon {
@@ -74,20 +138,6 @@
 
 .account-link-open {
   cursor: default;
-}
-
-.account-li-open {
-  background-color: #f0fdf4;
-  border: 2px dashed #16a34a;
-}
-
-.account-link-open {
-  cursor: default;
-}
-
-.account-li-open {
-  background-color: #f0fdf4;
-  border: 2px dashed #16a34a;
 }
 
 .open-account-btn {
@@ -276,4 +326,58 @@
 
 .dropdown-item-danger:hover {
   background-color: #fee2e2;
+}
+
+.account-link-open {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0.5rem 2rem;
+  border: 2px dashed #16a34a; 
+  border-radius: 7px;
+  background-color: #f0fdf4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  height: fit-content;
+  width: 100%;
+  color: #038831;
+  padding: 2rem; 
+  cursor: default;
+  overflow: hidden;
+  background-color: transparent; 
+  margin-right: 5rem;
+  background-color: #f0fdf4;
+  margin-top: 2rem;
+}
+
+.account-link-open .account-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  margin: 0 -2rem -2rem -2rem; /* Negative margins to extend to container edges */
+  background-color: #f0fdf4;
+}
+
+.account-link-open .account-h2 {
+  background: linear-gradient(135deg, #49ad6e 0%, #51986d 100%);
+}
+
+.account-link-open:hover .account-h2 {
+  background: linear-gradient(135deg, #3a985c 0%, #40835b 100%);
+}
+
+.account-link-open:hover, .account-link-open:hover .account-div {
+  background-color: #e5f8ec;
+  border-color: #15803d;
+}
+
+.account-link-open:hover p {
+  color: #0d6c2e;
+}
+
+.account-link-disabled {
+  margin-right: 5rem;
+}
+
+.account-card-wrapper {
+  margin-bottom: 2rem;
 }
