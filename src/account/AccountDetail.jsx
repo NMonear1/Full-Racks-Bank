@@ -41,7 +41,6 @@ export default function AccountInfo() {
       navigate("/");
       return;
     }
-    // Close all activity sections when account changes
     setShowTransactions(false);
     setShowDeposits(false);
     setShowWithdrawals(false);
