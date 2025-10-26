@@ -12,15 +12,20 @@
 
 .account-header h1 {
   font-size: 2.5rem;
-  color: #e5e7eb;
+  font-weight: 700;
+  color: #f9fafb;
+  margin: 0;
 }
 
-.account-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
+.account-nav a {
+  background-color: #f3f4f6;
+  color: #111827;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .account-nav a {
@@ -39,7 +44,9 @@
 }
 
 .account-nav a:hover {
-  background-color: #ebebeb;
+  background-color: #e5e7eb;
+  color: #065f46;
+  transform: translateY(-2px);
 }
 
 .switch-account {
@@ -53,17 +60,18 @@
   border-radius: 4px;
   transition: background-color 0.2s;
   display: inline-block;
+  z-index: 10;
 }
 
 .switch-account h3 {
-  margin: 0 auto;
-  font-size: 1rem;
-  color: #374151;
+  margin: 0;
+  font-size: 0.95rem;
+  color: #065f46;
 }
 
 .switch-account:hover {
-  background-color: #ffffff;
-  border-radius: 4px 4px 0 0;
+  background-color: #d1fae5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .account-menu {
@@ -72,35 +80,24 @@
   left: 0;
   background: white;
   border: 1px solid #ccc;
-  min-width: 180px;
-  border-radius: 0px 0px 4px 4px;
-
+  border-radius: 0 0 4px 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 180px;
+  width: 100%;
   z-index: 1000;
-  /* white-space: nowrap; */
 }
 
 .menu-item {
   display: block;
   padding: 12px 16px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-  border-radius: 0;
-  color: #333;
-  width: 100%;
-  transition: background-color 0.2s;
-  font-size: 1rem;
-}
-
-.menu-item:last-child {
-  border-bottom: none;
-  border-radius: 0 0 4px 4px;
+  font-size: 0.95rem;
+  color: #065f46;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .menu-item:hover {
-  background-color: initial;
-  color: initial;
+  background-color: #16a34a;
+  color: #f9fafb;
 }
 
 .account-header {
@@ -207,14 +204,12 @@
   animation: gradientShift 6s ease infinite;
 }
 
-/* Floating & hover effect */
 .balance-card:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
   background: linear-gradient(135deg, #e3edbc 0%, #f0f4d9 100%);
 }
 
-/* Gradient animation */
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -261,7 +256,6 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Form Overlay */
 .form-overlay {
   position: fixed;
   top: 0;
@@ -275,7 +269,6 @@
   z-index: 1000;
 }
 
-/* Form Content */
 .form-content {
   background: white;
   padding: 2rem;
