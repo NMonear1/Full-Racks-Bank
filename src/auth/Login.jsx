@@ -2,7 +2,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import "./loginForm.css";
+import "./LoginForm.css";
 
 export default function LoginForm({ isOpen, onClose }) {
   const [username, setUsername] = useState("");
