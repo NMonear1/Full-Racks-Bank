@@ -1,5 +1,5 @@
 import { CreditCard, Wallet, Home, TrendingUp } from "lucide-react";
-import "./welcomePage.css";
+import "./WelcomePage.css";
 import { Link } from "react-router";
 
 export default function WelcomePage() {
