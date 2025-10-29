@@ -7,9 +7,11 @@ import CreditScore from "./CreditScore.jsx";
 
 export default function Account() {
   const [accounts, setAccounts] = useState([]);
+  const [creditCards, setCreditCards] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
+  const [showCreditCardDialog, setShowCreditCardDialog] = useState(false);
   const [selectedAccountType, setSelectedAccountType] = useState("");
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const [showCreditScore, setShowCreditScore] = useState(false);
@@ -23,6 +25,7 @@ export default function Account() {
       navigate("/");
     } else {
       fetchAccounts();
+      fetchCreditCards();
     }
   }, [token]);
 
@@ -42,6 +45,23 @@ export default function Account() {
       setError(error.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchCreditCards = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_API + "/credit_cards", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch credit cards");
+      }
+      const data = await response.json();
+      setCreditCards(data);
+    } catch (error) {
+      console.error("Error fetching credit cards:", error.message);
     }
   };
 
@@ -70,6 +90,49 @@ export default function Account() {
       setSelectedAccountType("");
     } catch (err) {
       alert("Error opening account: " + err.message);
+    }
+  };
+
+  const openNewCreditCard = async () => {
+    try {
+      // Determine credit limit based on credit score
+      let creditLimit;
+      if (user?.creditscore >= 600) {
+        creditLimit = Math.min(user.creditscore * 10, 10000);
+      } else if (user?.creditscore >= 500) {
+        creditLimit = 1000;
+      } else {
+        creditLimit = 500;
+      }
+
+      // Create the request body with the credit limit
+      const requestBody = {
+        credit_limit: creditLimit,
+      };
+
+      const response = await fetch(import.meta.env.VITE_API + "/credit_cards", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestBody), // Pass the object with credit_limit
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        throw new Error(`Failed to open credit card: ${errorText}`);
+      }
+
+      const newCard = await response.json();
+      console.log("Credit card created successfully:", newCard);
+
+      fetchCreditCards();
+      alert("Credit card opened successfully!");
+    } catch (err) {
+      console.error("Full error:", err);
+      alert("Error opening credit card: " + err.message);
     }
   };
 
@@ -103,6 +166,36 @@ export default function Account() {
     }
   };
 
+  const closeCreditCard = async (cardId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to close this credit card? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API}/credit_cards/${cardId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to close credit card");
+      }
+
+      fetchCreditCards();
+      alert("Credit card closed successfully");
+      setOpenDropdownId(null);
+    } catch (err) {
+      alert("Error closing credit card: " + err.message);
+    }
+  };
+
   const handleOpenAccountSubmit = () => {
     if (!selectedAccountType) {
       alert("Please select an account type");
@@ -122,6 +215,10 @@ export default function Account() {
   };
   const formatAccountNumber = (accountNumber) => {
     return accountNumber.slice(-4).padStart(accountNumber.length, "*");
+  };
+
+  const formatCreditCardNumber = (cardNumber) => {
+    return "**** **** **** " + cardNumber.slice(-4);
   };
 
   const hasChecking = accounts.some((acc) => acc.type === "checking");
@@ -206,15 +303,71 @@ export default function Account() {
                 </div>
               ))}
 
+              {creditCards.map((card) => (
+                <div key={`credit-${card.id}`} className="account-card-wrapper">
+                  <Link to={`/credit-card/${card.id}`} className="account-link">
+                    <div className="account-item">
+                      <h2 className="account-h2">
+                        {card.card_type} Credit Card
+                      </h2>
+                      <div className="account-div">
+                        <p className="account-p">
+                          Card number:{" "}
+                          {formatCreditCardNumber(card.card_number)}
+                        </p>
+                        <p className="account-p">
+                          Available credit:{" "}
+                          {formatBalance(
+                            card.credit_limit - card.current_balance
+                          )}
+                        </p>
+                        <p className="account-p">
+                          Current balance: {formatBalance(card.current_balance)}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Add options menu for credit cards */}
+                  <div className="account-options">
+                    <button
+                      className="options-btn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenDropdownId(
+                          openDropdownId === `credit-${card.id}`
+                            ? null
+                            : `credit-${card.id}`
+                        );
+                      }}
+                    >
+                      <MoreVertical size={20} />
+                    </button>
+
+                    {openDropdownId === `credit-${card.id}` && (
+                      <div className="options-dropdown">
+                        <button
+                          className="dropdown-item dropdown-item-danger"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            closeCreditCard(card.id);
+                          }}
+                        >
+                          Close Credit Card
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+
               {!hasChecking && (
                 <div className="account-card-wrapper">
                   <div className="account-link account-link-open">
                     <div className="account-item">
                       <h2 className="account-h2">Checking</h2>
                       <div className="account-div">
-                         <p className="account-p">
-                          Manage your daily expenses
-                        </p>
+                        <p className="account-p">Manage your daily expenses</p>
                         <button
                           onClick={() => openNewAccount("checking")}
                           className="open-account-btn"
@@ -248,26 +401,50 @@ export default function Account() {
                 </div>
               )}
 
-              <div className="account-card-wrapper">
-                <div className="account-link account-link-disabled">
-                  <li className="account-li account-li-disabled">
-                    <h2 className="account-h2">Credit Card</h2>
-                    <div className="account-div">
-                      <p className="account-p coming-soon">Coming Soon</p>
+              {creditCards.length === 0 && (
+                <div className="account-card-wrapper">
+                  <div className="account-link account-link-open">
+                    <div className="account-item">
+                      <h2 className="account-h2">Credit Card</h2>
+                      <div className="account-div">
+                        {user?.creditscore >= 600 ? (
+                          <>
+                            <p className="account-p">
+                              Build credit and earn rewards
+                            </p>
+                            <button
+                              onClick={openNewCreditCard}
+                              className="open-account-btn"
+                            >
+                              Apply for Credit Card
+                            </button>
+                          </>
+                        ) : (
+                          <p className="account-p coming-soon">
+                            Credit score of 600+ required
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </li>
+                  </div>
                 </div>
-              </div>
+              )}
             </ul>
-
-            <div className="open-another-container">
-              <button
-                className="open-another-btn"
-                onClick={() => setShowDialog(true)}
-              >
-                + Open Another Account
-              </button>
-            </div>
+              <div className="open-another-container">
+                <button
+                  className="open-another-btn"
+                  onClick={() => setShowDialog(true)}
+                >
+                  + Open New Account
+                </button>
+                <button
+                  className="open-another-btn"
+                  onClick={() => setShowCreditCardDialog(true)}
+                  style={{ marginLeft: "1rem" }}
+                >
+                  + Open New Credit Card
+                </button>
+              </div>
           </>
         )}
       </div>
@@ -327,6 +504,45 @@ export default function Account() {
                 Open Account
               </button>
             </div>
+          </div>
+        </div>
+      )}
+      {showCreditCardDialog && (
+        <div
+          className="dialog-overlay"
+          onClick={() => setShowCreditCardDialog(false)}
+        >
+          <div className="dialog-content" onClick={(e) => e.stopPropagation()}>
+            <h2 className="dialog-title">Apply for a New Credit Card</h2>
+            <p className="dialog-subtitle">
+              Build credit and earn rewards. Credit score of 600+ recommended.
+            </p>
+            <div className="dialog-buttons">
+              <button
+                className="dialog-btn dialog-btn-cancel"
+                onClick={() => setShowCreditCardDialog(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="dialog-btn dialog-btn-confirm"
+                onClick={() => {
+                  setShowCreditCardDialog(false);
+                  openNewCreditCard();
+                }}
+                disabled={user?.creditscore < 600}
+              >
+                Open Credit Card
+              </button>
+            </div>
+            {user?.creditscore < 600 && (
+              <p
+                className="form-warning"
+                style={{ color: "#e53e3e", marginTop: "1rem" }}
+              >
+                Credit score of 600+ required to open a credit card.
+              </p>
+            )}
           </div>
         </div>
       )}
