@@ -407,7 +407,6 @@ export default function Account() {
                     <div className="account-item">
                       <h2 className="account-h2">Credit Card</h2>
                       <div className="account-div">
-                        {user?.creditscore >= 600 ? (
                           <>
                             <p className="account-p">
                               Build credit and earn rewards
@@ -419,11 +418,6 @@ export default function Account() {
                               Apply for Credit Card
                             </button>
                           </>
-                        ) : (
-                          <p className="account-p coming-soon">
-                            Credit score of 600+ required
-                          </p>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -530,19 +524,19 @@ export default function Account() {
                   setShowCreditCardDialog(false);
                   openNewCreditCard();
                 }}
-                disabled={user?.creditscore < 600}
+                // disabled={user?.creditscore < 600}
               >
                 Open Credit Card
               </button>
             </div>
-            {user?.creditscore < 600 && (
+            {/* {user?.creditscore < 600 && (
               <p
                 className="form-warning"
                 style={{ color: "#e53e3e", marginTop: "1rem" }}
               >
                 Credit score of 600+ required to open a credit card.
               </p>
-            )}
+            )} */}
           </div>
         </div>
       )}
