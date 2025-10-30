@@ -9,6 +9,7 @@ export default function AccountInfo() {
   const navigate = useNavigate();
 
   const [account, setAccount] = useState(null);
+  const [creditCards, setCreditCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showTransactions, setShowTransactions] = useState(false);
@@ -75,22 +76,47 @@ export default function AccountInfo() {
     }
   };
 
-  const fetchUserAccounts = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API}/account`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+const fetchUserAccounts = async () => {
+  try {
+    // Fetch bank accounts
+    const accountsResponse = await fetch(`${import.meta.env.VITE_API}/account`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        setUserAccounts(data.filter((acc) => acc.id !== parseInt(accountId)));
-      }
-    } catch (err) {
-      console.error("Error fetching user accounts:", err);
+    let accounts = [];
+    if (accountsResponse.ok) {
+      const accountsData = await accountsResponse.json();
+      accounts = accountsData.filter((acc) => acc.id !== parseInt(accountId));
     }
-  };
+
+    // Fetch credit cards
+    const creditCardsResponse = await fetch(`${import.meta.env.VITE_API}/credit_cards`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    let cards = [];
+    if (creditCardsResponse.ok) {
+      const cardsData = await creditCardsResponse.json();
+      // Filter out current credit card if we're viewing a credit card
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('/credit-card/')) {
+        const currentCardId = parseInt(accountId);
+        cards = cardsData.filter((card) => card.id !== currentCardId);
+      } else {
+        cards = cardsData;
+      }
+    }
+
+    setUserAccounts(accounts);
+    setCreditCards(cards);
+  } catch (err) {
+    console.error("Error fetching user accounts and credit cards:", err);
+  }
+};
 
   const fetchTransactions = async () => {
     setLoadingTransactions(true);
@@ -206,6 +232,10 @@ export default function AccountInfo() {
     if (showFull) return accountNumber;
     return accountNumber.slice(-4).padStart(accountNumber.length, "*");
   };
+
+  const formatCreditCardNumber = (cardNumber) => {
+  return "**** **** **** " + cardNumber.slice(-4);
+};
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -435,29 +465,49 @@ export default function AccountInfo() {
           <Link to="/account" className="back-to-account">
             <h3>&larr; Back to Account Summary</h3>
           </Link>
-          {userAccounts.length > 0 && !loading && !error && (
-            <menu
-              className="switch-account"
-              onMouseEnter={() => setShowAccountMenu(true)}
-              onMouseLeave={() => setShowAccountMenu(false)}
-            >
-              <h3>Switch Account</h3>
-              {showAccountMenu && (
-                <div className="account-menu">
-                  {userAccounts.map((acc) => (
-                    <Link
-                      key={acc.id}
-                      to={`/account/${acc.id}`}
-                      className="menu-item"
-                    >
-                      {acc.type.charAt(0).toUpperCase() + acc.type.slice(1)} -{" "}
-                      {formatAccountNumber(acc.account_number)}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </menu>
-          )}
+{(userAccounts.length > 0 || creditCards.length > 0) && !loading && !error && (
+  <menu
+    className="switch-account"
+    onMouseEnter={() => setShowAccountMenu(true)}
+    onMouseLeave={() => setShowAccountMenu(false)}
+  >
+    <h3>Switch Account</h3>
+    {showAccountMenu && (
+      <div className="account-menu">
+        {userAccounts.map((acc) => (
+          <Link
+            key={`account-${acc.id}`}
+            to={`/account/${acc.id}`}
+            className="menu-item"
+          >
+            <span className="account-type">
+              {acc.type.charAt(0).toUpperCase() + acc.type.slice(1) + " Account"}
+              <br />
+            </span>
+            <span className="account-number">
+              {formatAccountNumber(acc.account_number)}
+            </span>
+          </Link>
+        ))}
+        {creditCards.map((card) => (
+          <Link
+            key={`credit-${card.id}`}
+            to={`/credit-card/${card.id}`}
+            className="menu-item"
+          >
+            <span className="account-type">
+              {card.card_type} Credit Card
+              <br />
+            </span>
+            <span className="account-number">
+              {formatCreditCardNumber(card.card_number)}
+            </span>
+          </Link>
+        ))}
+      </div>
+    )}
+  </menu>
+)}
         </nav>
       </header>
 

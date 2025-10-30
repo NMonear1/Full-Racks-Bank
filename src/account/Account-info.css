@@ -441,3 +441,21 @@
   background-color: #2563eb;
 }
 
+.credit-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  padding: 10px;
+}
+
+.credit-info p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.credit-info p:last-child {
+  border-bottom: none;
+}

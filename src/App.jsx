@@ -5,6 +5,7 @@ import Register from "./auth/Register";
 import Welcome from "./components/Welcome";
 import Account from "./account/Account.jsx";
 import Checking from "./account/AccountDetail.jsx";
+import CreditCard from "./account/CreditCard.jsx";
 import Error404 from "./Error404";
 
 export default function App() {
@@ -18,6 +19,10 @@ export default function App() {
         <Route path="account">
           <Route index element={<Account />} />
           <Route path=":accountId" element={<Checking />} />
+        </Route>
+
+                <Route path="credit-card">
+          <Route path=":accountId" element={<CreditCard />} />
         </Route>
 
         <Route path="*" element={<Error404 />} />
