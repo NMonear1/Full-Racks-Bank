@@ -95,9 +95,9 @@ export default function BankingNavbar() {
                 >
                   Log in
                 </a>
-                <a href="/register" className="open-account">
+                <NavLink to="./register" className="open-account">
                   Open account
-                </a>
+                </NavLink>
               </>
             )}
             {token && (

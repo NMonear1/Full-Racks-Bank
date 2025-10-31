@@ -1,6 +1,6 @@
 import { CreditCard, Wallet, Home, TrendingUp } from "lucide-react";
 import "./WelcomePage.css";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 export default function WelcomePage() {
   const products = [
@@ -70,9 +70,9 @@ export default function WelcomePage() {
             Banking that works for you. Simple, secure, and always by your side.
           </p>
           <div className="hero-buttons">
-            <a href="/register" className="hero-btn-primary">
+            <NavLink to={"./register"} className="hero-btn-primary">
               Get Started
-            </a>
+            </NavLink>
             <a href="#" className="hero-btn-secondary">
               Learn More
             </a>
