@@ -92,6 +92,7 @@
 
   .desktop-auth {
     display: flex;
+    gap: 20px;
   }
 
   .mobile-menu-button {
@@ -127,7 +128,7 @@
 }
 
 .account-navlink {
-  font-size: 0.875rem;
+  font-size: 12.8px;
   font-weight: 500;
   color: #374151;
   text-decoration: none;
@@ -158,6 +159,8 @@
   font-size: 1.125rem;
   color: #374151;
   font-weight: 500;
+  margin-right: 4rem;
+  margin-left: 1rem;
 }
 
 .login-prompt-overlay {
@@ -230,4 +233,101 @@
 
 .login-prompt-confirm:hover {
   background-color: #15803d;
+}
+
+.switch-account {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  /* height: 37.5px; */
+  align-self: center;
+  padding: 8px 12px;
+  min-width: 155px;
+  border-radius: 4px;
+  transition: background-color 0.1s;
+  display: inline-block;
+  z-index: 10;
+}
+
+.switch-account h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #065f46;
+}
+
+.switch-account:hover {
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px 4px 0px 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.account-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: inherit;
+  /* border: 1px solid #c9c9c9; */
+  border-top: 1px solid #f0f0f0;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  z-index: 1000;
+}
+
+.menu-item {
+  display: block;
+  padding: 12px;
+  font-size: 0.95rem;
+  color: #065f46;
+  /* text-decoration: none; */
+  transition: background-color 0.1s, color 0.1s;
+}
+
+.menu-item:hover {
+  background-color: rgb(242, 242, 242);
+  border-radius: 0px;
+    color: #16a34a;
+}
+
+.menu-item:last-child:hover {
+  border-radius: 0 0 4px 4px;
+}
+
+.switch-account {
+  background-color: inherit;
+  position: relative;
+  z-index: 1001;
+}
+
+.switch-account h3 {
+  cursor: pointer;
+  margin: 0px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.account-menu {
+  z-index: 200000000000000000;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 2000;
+  border-bottom: 1px solid rgb(230, 231, 220);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.06); */
+}
+
+main {
+    margin-top: 74px;
 }

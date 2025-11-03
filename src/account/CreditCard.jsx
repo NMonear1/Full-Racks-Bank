@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 import "./Account-info.css";
 
@@ -9,24 +9,21 @@ export default function CreditCard() {
   const navigate = useNavigate();
 
   const [creditCard, setCreditCard] = useState(null);
-  const [creditCards, setCreditCards] = useState([]);
-  const [userAccounts, setUserAccounts] = useState([]);
-  const [showAccountMenu, setShowAccountMenu] = useState(false);
+  // const [creditCards, setCreditCards] = useState([]);
+  // const [userAccounts, setUserAccounts] = useState([]);
   const [showFullCardNumber, setShowFullCardNumber] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [showTransactions, setShowTransactions] = useState(false);
+  const [showTransactions, setShowTransactions] = useState(true);
   const [showPayments, setShowPayments] = useState(false);
   const [showPurchases, setShowPurchases] = useState(false);
 
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
-  const [showCashAdvanceForm, setShowCashAdvanceForm] = useState(false);
 
   const [paymentAmount, setPaymentAmount] = useState("");
   const [purchaseAmount, setPurchaseAmount] = useState("");
   const [merchant, setMerchant] = useState("");
-  const [cashAdvanceAmount, setCashAdvanceAmount] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -42,13 +39,20 @@ export default function CreditCard() {
       navigate("/");
       return;
     }
-    setShowTransactions(false);
+    setShowTransactions(true);
     setShowPayments(false);
     setShowPurchases(false);
 
     fetchCreditCardData();
-    fetchUserAccountsAndCards(); // <-- Add this line
+    // fetchUserAccountsAndCards();
   }, [accountId, token]);
+
+    useEffect(() => {
+    // Fetch transactions automatically when showTransactions is true
+    if (showTransactions) {
+      fetchTransactions();
+    }
+  }, [showTransactions, accountId, token]);
 
   const fetchCreditCardData = async () => {
     try {
@@ -76,40 +80,40 @@ export default function CreditCard() {
     }
   };
 
-  const fetchUserAccountsAndCards = async () => {
-    try {
-      // Fetch bank accounts
-      const accountsResponse = await fetch(
-        `${import.meta.env.VITE_API}/account`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      let accounts = [];
-      if (accountsResponse.ok) {
-        accounts = await accountsResponse.json();
-      }
+  // const fetchUserAccountsAndCards = async () => {
+  //   try {
+  //     // Fetch bank accounts
+  //     const accountsResponse = await fetch(
+  //       `${import.meta.env.VITE_API}/account`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     let accounts = [];
+  //     if (accountsResponse.ok) {
+  //       accounts = await accountsResponse.json();
+  //     }
 
-      // Fetch credit cards
-      const creditCardsResponse = await fetch(
-        `${import.meta.env.VITE_API}/credit_cards`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      let cards = [];
-      if (creditCardsResponse.ok) {
-        const cardsData = await creditCardsResponse.json();
-        // Optionally filter out the current card
-        cards = cardsData.filter((card) => card.id !== parseInt(accountId));
-      }
+  //     // Fetch credit cards
+  //     const creditCardsResponse = await fetch(
+  //       `${import.meta.env.VITE_API}/credit_cards`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     let cards = [];
+  //     if (creditCardsResponse.ok) {
+  //       const cardsData = await creditCardsResponse.json();
+  //       // Optionally filter out the current card
+  //       cards = cardsData.filter((card) => card.id !== parseInt(accountId));
+  //     }
 
-      setUserAccounts(accounts);
-      setCreditCards(cards);
-    } catch (error) {
-      console.error("Error fetching user accounts and credit cards:", error);
-    }
-  };
+  //     setUserAccounts(accounts);
+  //     setCreditCards(cards);
+  //   } catch (error) {
+  //     console.error("Error fetching user accounts and credit cards:", error);
+  //   }
+  // };
 
   const fetchTransactions = async () => {
     setLoadingTransactions(true);
@@ -224,10 +228,10 @@ export default function CreditCard() {
   const formatCreditCardNumber = (cardNumber) => {
     return "**** **** **** " + cardNumber.slice(-4);
   };
-  const formatAccountNumber = (accountNumber, showFull = false) => {
-    if (showFull) return accountNumber;
-    return accountNumber.slice(-4).padStart(accountNumber.length, "*");
-  };
+  // const formatAccountNumber = (accountNumber, showFull = false) => {
+  //   if (showFull) return accountNumber;
+  //   return accountNumber.slice(-4).padStart(accountNumber.length, "*");
+  // };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -245,7 +249,6 @@ export default function CreditCard() {
     const labels = {
       purchase: "Purchase",
       payment: "Payment",
-      cash_advance: "Cash Advance",
       fee: "Fee",
       interest: "Interest",
       refund: "Refund",
@@ -253,175 +256,125 @@ export default function CreditCard() {
     return labels[type] || type;
   };
 
-  const handlePayment = async (e) => {
-    e.preventDefault();
-    setFormError("");
-    setSuccessMessage("");
+const handlePayment = async (e) => {
+  e.preventDefault();
+  setFormError("");
+  setSuccessMessage("");
 
-    const amount = parseFloat(paymentAmount);
-    if (!amount || amount <= 0) {
-      setFormError("Please enter a valid amount");
-      return;
-    }
+  const amount = parseFloat(paymentAmount);
+  if (!amount || amount <= 0) {
+    setFormError("Please enter a valid amount");
+    return;
+  }
 
-    if (amount > creditCard.current_balance) {
-      setFormError("Payment amount cannot exceed current balance");
-      return;
-    }
+  if (amount > creditCard.current_balance) {
+    setFormError("Payment amount cannot exceed current balance");
+    return;
+  }
 
-    setSubmitting(true);
+  setSubmitting(true);
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/credit_cards/${accountId}/payment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ amount }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to process payment");
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API}/credit_cards/${accountId}/payment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ amount }),
       }
+    );
 
-      setSuccessMessage(`Successfully paid ${formatBalance(amount)}`);
-      setPaymentAmount("");
-      await fetchCreditCardData();
+    const data = await response.json();
 
-      setTimeout(() => {
-        setShowPaymentForm(false);
-        setSuccessMessage("");
-      }, 2000);
-    } catch (err) {
-      setFormError(err.message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handlePurchase = async (e) => {
-    e.preventDefault();
-    setFormError("");
-    setSuccessMessage("");
-
-    const amount = parseFloat(purchaseAmount);
-    if (!amount || amount <= 0) {
-      setFormError("Please enter a valid amount");
-      return;
+    if (!response.ok) {
+      throw new Error(data.error || "Failed to process payment");
     }
 
-    if (!merchant || merchant.trim() === "") {
-      setFormError("Please enter a merchant name");
-      return;
-    }
+    setSuccessMessage(`Successfully paid ${formatBalance(amount)}`);
+    setPaymentAmount("");
+    await fetchCreditCardData();
+    await fetchTransactions(); // <-- Refresh all transactions
+    await fetchPayments();     // <-- Refresh payments
+    await fetchPurchases();    // <-- Refresh purchases
 
-    const availableCredit =
-      creditCard.credit_limit - creditCard.current_balance;
-    if (amount > availableCredit) {
-      setFormError("Purchase amount exceeds available credit");
-      return;
-    }
+    setTimeout(() => {
+      setShowPaymentForm(false);
+      setSuccessMessage("");
+    }, 2000);
+  } catch (err) {
+    setFormError(err.message);
+  } finally {
+    setSubmitting(false);
+  }
+};
 
-    setSubmitting(true);
+const handlePurchase = async (e) => {
+  e.preventDefault();
+  setFormError("");
+  setSuccessMessage("");
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/credit_cards/${accountId}/purchase`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ amount, merchant }),
-        }
-      );
+  const amount = parseFloat(purchaseAmount);
+  if (!amount || amount <= 0) {
+    setFormError("Please enter a valid amount");
+    return;
+  }
 
-      const data = await response.json();
+  if (!merchant || merchant.trim() === "") {
+    setFormError("Please enter a merchant name");
+    return;
+  }
 
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to process purchase");
+  const availableCredit =
+    creditCard.credit_limit - creditCard.current_balance;
+  if (amount > availableCredit) {
+    setFormError("Purchase amount exceeds available credit");
+    return;
+  }
+
+  setSubmitting(true);
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API}/credit_cards/${accountId}/purchase`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ amount, merchant }),
       }
+    );
 
-      setSuccessMessage(
-        `Successfully charged ${formatBalance(amount)} at ${merchant}`
-      );
-      setPurchaseAmount("");
-      setMerchant("");
-      await fetchCreditCardData();
+    const data = await response.json();
 
-      setTimeout(() => {
-        setShowPurchaseForm(false);
-        setSuccessMessage("");
-      }, 2000);
-    } catch (err) {
-      setFormError(err.message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleCashAdvance = async (e) => {
-    e.preventDefault();
-    setFormError("");
-    setSuccessMessage("");
-
-    const amount = parseFloat(cashAdvanceAmount);
-    if (!amount || amount <= 0) {
-      setFormError("Please enter a valid amount");
-      return;
+    if (!response.ok) {
+      throw new Error(data.error || "Failed to process purchase");
     }
 
-    const availableCredit =
-      creditCard.credit_limit - creditCard.current_balance;
-    if (amount > availableCredit) {
-      setFormError("Cash advance amount exceeds available credit");
-      return;
-    }
+    setSuccessMessage(
+      `Successfully charged ${formatBalance(amount)} at ${merchant}`
+    );
+    setPurchaseAmount("");
+    setMerchant("");
+    await fetchCreditCardData();
+    await fetchTransactions(); // <-- Refresh all transactions
+    await fetchPurchases();    // <-- Refresh purchases
+    await fetchPayments();     // <-- Refresh payments
 
-    setSubmitting(true);
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/credit_cards/${accountId}/cash_advance`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ amount }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to process cash advance");
-      }
-
-      setSuccessMessage(
-        `Successfully processed cash advance of ${formatBalance(amount)}`
-      );
-      setCashAdvanceAmount("");
-      await fetchCreditCardData();
-
-      setTimeout(() => {
-        setShowCashAdvanceForm(false);
-        setSuccessMessage("");
-      }, 2000);
-    } catch (err) {
-      setFormError(err.message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    setTimeout(() => {
+      setShowPurchaseForm(false);
+      setSuccessMessage("");
+    }, 2000);
+  } catch (err) {
+    setFormError(err.message);
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   const closePaymentForm = () => {
     setShowPaymentForm(false);
@@ -438,13 +391,6 @@ export default function CreditCard() {
     setSuccessMessage("");
   };
 
-  const closeCashAdvanceForm = () => {
-    setShowCashAdvanceForm(false);
-    setCashAdvanceAmount("");
-    setFormError("");
-    setSuccessMessage("");
-  };
-
   return (
     <>
       <header className="account-header">
@@ -455,58 +401,7 @@ export default function CreditCard() {
               )}`
             : "Credit Card Details"}
         </h1>
-        <nav className="account-nav">
-          <Link to="/account" className="back-to-account">
-            <h3>&larr; Back to Account Summary</h3>
-          </Link>
-          {(userAccounts.length > 0 || creditCards.length > 0) &&
-            !loading &&
-            !error && (
-              <menu
-                className="switch-account"
-                onMouseEnter={() => setShowAccountMenu(true)}
-                onMouseLeave={() => setShowAccountMenu(false)}
-              >
-                <h3>Switch Account</h3>
-                {showAccountMenu && (
-                  <div className="account-menu">
-                    {userAccounts.map((acc) => (
-                      <Link
-                        key={`account-${acc.id}`}
-                        to={`/account/${acc.id}`}
-                        className="menu-item"
-                      >
-                        <span className="account-type">
-                          {acc.type.charAt(0).toUpperCase() +
-                            acc.type.slice(1) +
-                            " Account"}
-                          <br />
-                        </span>
-                        <span className="account-number">
-                          {formatAccountNumber(acc.account_number)}
-                        </span>
-                      </Link>
-                    ))}
-                    {creditCards.map((card) => (
-                      <Link
-                        key={`credit-${card.id}`}
-                        to={`/credit-card/${card.id}`}
-                        className="menu-item"
-                      >
-                        <span className="account-type">
-                          {card.card_type} Credit Card
-                          <br />
-                        </span>
-                        <span className="account-number">
-                          {formatCreditCardNumber(card.card_number)}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </menu>
-            )}
-        </nav>
+        {/* < */}
       </header>
 
       {loading && <div className="loading">Loading credit card...</div>}
@@ -536,14 +431,16 @@ export default function CreditCard() {
           </div>
 
           <div className="balance-card">
-            <h2>Account Balance</h2>
-            <p className="balance-amount">{formatBalance(creditCard.current_balance)}</p>
+            <h2>Outstanding Balance</h2>
+            <p className="balance-amount">
+              {formatBalance(creditCard.current_balance)}
+            </p>
           </div>
 
           <div className="activity">
-          <header>
-            <h2>Credit Information</h2>
-          </header>
+            <header>
+              <h2>Credit Information</h2>
+            </header>
             <div className="history credit-info">
               <p className="minimum-payment">
                 Minimum Payment of {formatBalance(creditCard.minimum_payment)}{" "}
@@ -554,7 +451,7 @@ export default function CreditCard() {
                 Credit Limit: {formatBalance(creditCard.credit_limit)}
               </p>
               <p className="balance">
-                Current Balance: {formatBalance(creditCard.current_balance)}
+                Outstanding Balance: {formatBalance(creditCard.current_balance)}
               </p>
               <p className="available-credit">
                 Available Credit:{" "}
@@ -568,21 +465,15 @@ export default function CreditCard() {
           <div className="action-buttons">
             <button
               className="action-btn"
-              onClick={() => setShowPaymentForm(true)}
-            >
-              Make a Payment
-            </button>
-            <button
-              className="action-btn"
               onClick={() => setShowPurchaseForm(true)}
             >
               Make a Purchase
             </button>
             <button
               className="action-btn"
-              onClick={() => setShowCashAdvanceForm(true)}
+              onClick={() => setShowPaymentForm(true)}
             >
-              Cash Advance
+              Make a Payment
             </button>
           </div>
 
@@ -792,51 +683,6 @@ export default function CreditCard() {
                 disabled={submitting}
               >
                 {submitting ? "Processing..." : "Submit Purchase"}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Cash Advance Form */}
-      {showCashAdvanceForm && (
-        <div className="form-overlay" onClick={closeCashAdvanceForm}>
-          <div className="form-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-form" onClick={closeCashAdvanceForm}>
-              X
-            </button>
-            <h3 className="form-title">Cash Advance</h3>
-            <form onSubmit={handleCashAdvance}>
-              <input
-                type="number"
-                placeholder="Cash Advance Amount"
-                value={cashAdvanceAmount}
-                onChange={(e) => setCashAdvanceAmount(e.target.value)}
-                step="0.01"
-                min="0.01"
-                required
-                disabled={submitting}
-              />
-              <p className="form-info">
-                Available Credit:{" "}
-                {creditCard &&
-                  formatBalance(
-                    creditCard.credit_limit - creditCard.current_balance
-                  )}
-              </p>
-              <p className="form-warning">
-                Cash advances typically have higher interest rates and fees.
-              </p>
-              {formError && <p className="form-error">{formError}</p>}
-              {successMessage && (
-                <p className="form-success">{successMessage}</p>
-              )}
-              <button
-                type="submit"
-                className="submit-btn"
-                disabled={submitting}
-              >
-                {submitting ? "Processing..." : "Process Cash Advance"}
               </button>
             </form>
           </div>

@@ -81,6 +81,7 @@ export default function Account() {
       }
 
       fetchAccounts();
+      window.dispatchEvent(new Event("refreshAccounts"));
       alert(
         `${
           accountType.charAt(0).toUpperCase() + accountType.slice(1)
@@ -130,6 +131,7 @@ export default function Account() {
 
       fetchCreditCards();
       alert("Credit card opened successfully!");
+      window.dispatchEvent(new Event("refreshAccounts"));
     } catch (err) {
       console.error("Full error:", err);
       alert("Error opening credit card: " + err.message);
@@ -160,7 +162,7 @@ export default function Account() {
 
       fetchAccounts();
       alert("Account closed successfully");
-      setOpenDropdownId(null);
+      window.dispatchEvent(new Event("refreshAccounts"));
     } catch (err) {
       alert("Error closing account: " + err.message);
     }
@@ -190,7 +192,7 @@ export default function Account() {
 
       fetchCreditCards();
       alert("Credit card closed successfully");
-      setOpenDropdownId(null);
+      window.dispatchEvent(new Event("refreshAccounts"));
     } catch (err) {
       alert("Error closing credit card: " + err.message);
     }
@@ -253,55 +255,113 @@ export default function Account() {
             {!user?.creditscore ? <CreditScore /> : null}
 
             <ul>
-              {accounts.map((account) => (
-                <div key={account.id} className="account-card-wrapper">
-                  <Link to={`/account/${account.id}`} className="account-link">
-                    <div className="account-item">
-                      <h2 className="account-h2">
-                        {account.type.charAt(0).toUpperCase() +
-                          account.type.slice(1)}
-                      </h2>
-                      <div className="account-div">
-                        <p className="account-p">
-                          Account number:{" "}
-                          {formatAccountNumber(account.account_number)}
-                        </p>
-                        <p className="account-p">
-                          Available balance: {formatBalance(account.balance)}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-
-                  <div className="account-options">
-                    <button
-                      className="options-btn"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setOpenDropdownId(
-                          openDropdownId === account.id ? null : account.id
-                        );
-                      }}
+              {/* Render checking accounts first */}
+              {accounts
+                .filter((acc) => acc.type === "checking")
+                .map((account) => (
+                  <div key={account.id} className="account-card-wrapper">
+                    <Link
+                      to={`/account/${account.id}`}
+                      className="account-link"
                     >
-                      <MoreVertical size={20} />
-                    </button>
-
-                    {openDropdownId === account.id && (
-                      <div className="options-dropdown">
-                        <button
-                          className="dropdown-item dropdown-item-danger"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            closeAccount(account.id, account.type);
-                          }}
-                        >
-                          Close Account
-                        </button>
+                      <div className="account-item">
+                        <h2 className="account-h2">
+                          {account.type.charAt(0).toUpperCase() +
+                            account.type.slice(1)}
+                        </h2>
+                        <div className="account-div">
+                          <p className="account-p">
+                            Account number:{" "}
+                            {formatAccountNumber(account.account_number)}
+                          </p>
+                          <p className="account-p">
+                            Available balance: {formatBalance(account.balance)}
+                          </p>
+                        </div>
                       </div>
-                    )}
+                    </Link>
+                    <div className="account-options">
+                      <button
+                        className="options-btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setOpenDropdownId(
+                            openDropdownId === account.id ? null : account.id
+                          );
+                        }}
+                      >
+                        <MoreVertical size={20} />
+                      </button>
+                      {openDropdownId === account.id && (
+                        <div className="options-dropdown">
+                          <button
+                            className="dropdown-item dropdown-item-danger"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              closeAccount(account.id, account.type);
+                            }}
+                          >
+                            Close Account
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+
+              {/* Then render savings accounts */}
+              {accounts
+                .filter((acc) => acc.type === "savings")
+                .map((account) => (
+                  <div key={account.id} className="account-card-wrapper">
+                    <Link
+                      to={`/account/${account.id}`}
+                      className="account-link"
+                    >
+                      <div className="account-item">
+                        <h2 className="account-h2">
+                          {account.type.charAt(0).toUpperCase() +
+                            account.type.slice(1)}
+                        </h2>
+                        <div className="account-div">
+                          <p className="account-p">
+                            Account number:{" "}
+                            {formatAccountNumber(account.account_number)}
+                          </p>
+                          <p className="account-p">
+                            Available balance: {formatBalance(account.balance)}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                    <div className="account-options">
+                      <button
+                        className="options-btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setOpenDropdownId(
+                            openDropdownId === account.id ? null : account.id
+                          );
+                        }}
+                      >
+                        <MoreVertical size={20} />
+                      </button>
+                      {openDropdownId === account.id && (
+                        <div className="options-dropdown">
+                          <button
+                            className="dropdown-item dropdown-item-danger"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              closeAccount(account.id, account.type);
+                            }}
+                          >
+                            Close Account
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
 
               {creditCards.map((card) => (
                 <div key={`credit-${card.id}`} className="account-card-wrapper">
@@ -322,7 +382,7 @@ export default function Account() {
                           )}
                         </p>
                         <p className="account-p">
-                          Current balance: {formatBalance(card.current_balance)}
+                          Outstanding balance: {formatBalance(card.current_balance)}
                         </p>
                       </div>
                     </div>
