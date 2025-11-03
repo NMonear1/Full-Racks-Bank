@@ -407,38 +407,52 @@ export default function Account() {
                     <div className="account-item">
                       <h2 className="account-h2">Credit Card</h2>
                       <div className="account-div">
-                          <>
-                            <p className="account-p">
-                              Build credit and earn rewards
-                            </p>
-                            <button
-                              onClick={openNewCreditCard}
-                              className="open-account-btn"
-                            >
-                              Apply for Credit Card
-                            </button>
-                          </>
+                        <>
+                          <p className="account-p">
+                            Build credit and earn rewards
+                          </p>
+                          <button
+                            onClick={openNewCreditCard}
+                            className="open-account-btn"
+                          >
+                            Apply for Credit Card
+                          </button>
+                        </>
                       </div>
                     </div>
                   </div>
                 </div>
               )}
-            </ul>
-              <div className="open-another-container">
-                <button
-                  className="open-another-btn"
-                  onClick={() => setShowDialog(true)}
-                >
-                  + Open New Account
-                </button>
-                <button
-                  className="open-another-btn"
-                  onClick={() => setShowCreditCardDialog(true)}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  + Open New Credit Card
-                </button>
+
+              <div className="account-card-wrapper">
+                <Link to="/stocks" className="account-link">
+                  <div className="account-item">
+                    <h2 className="account-h2">Stocks</h2>
+                    <div className="account-div">
+                      <p className="account-p">
+                        Invest in the stock market and grow your wealth
+                      </p>
+                      <button className="open-account-btn">View Stocks</button>
+                    </div>
+                  </div>
+                </Link>
               </div>
+            </ul>
+            <div className="open-another-container">
+              <button
+                className="open-another-btn"
+                onClick={() => setShowDialog(true)}
+              >
+                + Open New Account
+              </button>
+              <button
+                className="open-another-btn"
+                onClick={() => setShowCreditCardDialog(true)}
+                style={{ marginLeft: "1rem" }}
+              >
+                + Open New Credit Card
+              </button>
+            </div>
           </>
         )}
       </div>

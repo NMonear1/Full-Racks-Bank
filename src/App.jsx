@@ -6,6 +6,7 @@ import Welcome from "./components/Welcome";
 import Account from "./account/Account.jsx";
 import Checking from "./account/AccountDetail.jsx";
 import CreditCard from "./account/CreditCard.jsx";
+import Stocks from "./account/Stocks.jsx";
 import Error404 from "./Error404";
 
 export default function App() {
@@ -20,11 +21,10 @@ export default function App() {
           <Route index element={<Account />} />
           <Route path=":accountId" element={<Checking />} />
         </Route>
-
-                <Route path="credit-card">
+        <Route path="credit-card">
           <Route path=":accountId" element={<CreditCard />} />
         </Route>
-
+        <Route path="stocks" element={<Stocks />} />
         <Route path="*" element={<Error404 />} />
       </Route>
     </Routes>
