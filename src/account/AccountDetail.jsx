@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 import "./Account-info.css";
 
@@ -9,14 +9,13 @@ export default function AccountInfo() {
   const navigate = useNavigate();
 
   const [account, setAccount] = useState(null);
-  const [creditCards, setCreditCards] = useState([]);
+  // const [creditCards, setCreditCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [showTransactions, setShowTransactions] = useState(false);
+  const [showTransactions, setShowTransactions] = useState(true);
   const [showDeposits, setShowDeposits] = useState(false);
   const [showWithdrawals, setShowWithdrawals] = useState(false);
-  const [showAccountMenu, setShowAccountMenu] = useState(false);
-  const [userAccounts, setUserAccounts] = useState([]);
+  // const [userAccounts, setUserAccounts] = useState([]);
   const [showDepositsForm, setShowDepositsForm] = useState(false);
   const [showWithdrawalsForm, setShowWithdrawalsForm] = useState(false);
   const [showSendMoneyForm, setShowSendMoneyForm] = useState(false);
@@ -42,13 +41,20 @@ export default function AccountInfo() {
       navigate("/");
       return;
     }
-    setShowTransactions(false);
+    setShowTransactions(true);
     setShowDeposits(false);
     setShowWithdrawals(false);
 
     fetchAccountData();
     fetchUserAccounts();
   }, [accountId, token]);
+
+    useEffect(() => {
+    // Fetch transactions automatically when showTransactions is true
+    if (showTransactions) {
+      fetchTransactions();
+    }
+  }, [showTransactions, accountId, token]);
 
   const fetchAccountData = async () => {
     try {
@@ -76,47 +82,48 @@ export default function AccountInfo() {
     }
   };
 
-const fetchUserAccounts = async () => {
-  try {
-    // Fetch bank accounts
-    const accountsResponse = await fetch(`${import.meta.env.VITE_API}/account`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const fetchUserAccounts = async () => {
+    try {
+      // Fetch bank accounts
+      await fetch(`${import.meta.env.VITE_API}/account`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    let accounts = [];
-    if (accountsResponse.ok) {
-      const accountsData = await accountsResponse.json();
-      accounts = accountsData.filter((acc) => acc.id !== parseInt(accountId));
+      // let accounts = [];
+      // if (accountsResponse.ok) {
+      //   const accountsData = await accountsResponse.json();
+      // accounts = accountsData.filter((acc) => acc.id !== parseInt(accountId));
+    } catch (err) {
+      // Fetch credit cards
+      // const creditCardsResponse = await fetch(
+      //   `${import.meta.env.VITE_API}/credit_cards`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
+
+      // let cards = [];
+      // if (creditCardsResponse.ok) {
+      //   const cardsData = await creditCardsResponse.json();
+      //   // Filter out current credit card if we're viewing a credit card
+      //   const currentPath = window.location.pathname;
+      //   if (currentPath.includes("/credit-card/")) {
+      //     const currentCardId = parseInt(accountId);
+      //     cards = cardsData.filter((card) => card.id !== currentCardId);
+      //   } else {
+      //     cards = cardsData;
+      //   }
+      // }
+
+      // setUserAccounts(accounts);
+      // setCreditCards(cards);
+      console.error("Error fetching user accounts and credit cards:", err);
     }
-
-    // Fetch credit cards
-    const creditCardsResponse = await fetch(`${import.meta.env.VITE_API}/credit_cards`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    let cards = [];
-    if (creditCardsResponse.ok) {
-      const cardsData = await creditCardsResponse.json();
-      // Filter out current credit card if we're viewing a credit card
-      const currentPath = window.location.pathname;
-      if (currentPath.includes('/credit-card/')) {
-        const currentCardId = parseInt(accountId);
-        cards = cardsData.filter((card) => card.id !== currentCardId);
-      } else {
-        cards = cardsData;
-      }
-    }
-
-    setUserAccounts(accounts);
-    setCreditCards(cards);
-  } catch (err) {
-    console.error("Error fetching user accounts and credit cards:", err);
-  }
-};
+  };
 
   const fetchTransactions = async () => {
     setLoadingTransactions(true);
@@ -233,9 +240,9 @@ const fetchUserAccounts = async () => {
     return accountNumber.slice(-4).padStart(accountNumber.length, "*");
   };
 
-  const formatCreditCardNumber = (cardNumber) => {
-  return "**** **** **** " + cardNumber.slice(-4);
-};
+  // const formatCreditCardNumber = (cardNumber) => {
+  //   return "**** **** **** " + cardNumber.slice(-4);
+  // };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -294,6 +301,8 @@ const fetchUserAccounts = async () => {
       setSuccessMessage(`Successfully deposited ${formatBalance(amount)}`);
       setDepositAmount("");
       await fetchAccountData();
+      await fetchTransactions(); // <-- Add this line to refresh transactions
+      await fetchDeposits(); // <-- Add this line to refresh deposits
 
       setTimeout(() => {
         setShowDepositsForm(false);
@@ -354,6 +363,8 @@ const fetchUserAccounts = async () => {
       setWithdrawAmount("");
       setPayee("");
       await fetchAccountData();
+      await fetchTransactions(); // <-- Add this line to refresh transactions
+      await fetchWithdrawals(); // <-- Add this line to refresh withdrawals
 
       setTimeout(() => {
         setShowWithdrawalsForm(false);
@@ -415,6 +426,7 @@ const fetchUserAccounts = async () => {
       setTransferAmount("");
       setRecipientAccount("");
       await fetchAccountData();
+      await fetchTransactions(); // <-- Add this line to refresh transactions
 
       setTimeout(() => {
         setShowSendMoneyForm(false);
@@ -461,56 +473,7 @@ const fetchUserAccounts = async () => {
               formatAccountNumber(account.account_number)
             : "Account Details"}
         </h1>
-        <nav className="account-nav">
-          <Link to="/account" className="back-to-account">
-            <h3>&larr; Back to Account Summary</h3>
-          </Link>
-{(userAccounts.length > 0 || creditCards.length > 0) && !loading && !error && (
-  <menu
-    className="switch-account"
-    onMouseEnter={() => setShowAccountMenu(true)}
-    onMouseLeave={() => setShowAccountMenu(false)}
-  >
-    <h3>Switch Account</h3>
-    {showAccountMenu && (
-      <div className="account-menu">
-        {userAccounts.map((acc) => (
-          <Link
-            key={`account-${acc.id}`}
-            to={`/account/${acc.id}`}
-            className="menu-item"
-          >
-            <span className="account-type">
-              {acc.type.charAt(0).toUpperCase() + acc.type.slice(1) + " Account"}
-              <br />
-            </span>
-            <span className="account-number">
-              {formatAccountNumber(acc.account_number)}
-            </span>
-          </Link>
-        ))}
-        {creditCards.map((card) => (
-          <Link
-            key={`credit-${card.id}`}
-            to={`/credit-card/${card.id}`}
-            className="menu-item"
-          >
-            <span className="account-type">
-              {card.card_type} Credit Card
-              <br />
-            </span>
-            <span className="account-number">
-              {formatCreditCardNumber(card.card_number)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    )}
-  </menu>
-)}
-        </nav>
       </header>
-
       {loading && <div className="loading">Loading account...</div>}
 
       {error && <div className="error">Error: {error}</div>}
@@ -556,6 +519,7 @@ const fetchUserAccounts = async () => {
             >
               Pay a Bill
             </button>
+
             <button
               className="action-btn"
               onClick={() => setShowSendMoneyForm(true)}

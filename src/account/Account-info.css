@@ -4,10 +4,8 @@
   justify-content: space-between;
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
-  padding: 2rem 1rem;
   max-width: webkit-fill-available;
-  padding: 2rem;
-  padding-bottom: 0.5rem;
+  padding: 5rem 2rem;
 }
 
 .account-header h1 {
@@ -15,89 +13,6 @@
   font-weight: 700;
   color: #f9fafb;
   margin: 0;
-}
-
-.account-nav a {
-  background-color: #f3f4f6;
-  color: #111827;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.account-nav a {
-  position: relative;
-  background-color: #ffffff;
-  cursor: pointer;
-  align-self: center;
-  padding: 8px 12px;
-  min-width: 180px;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  display: inline-block;
-  text-decoration: none;
-  color: #374151;
-}
-
-.account-nav a:hover {
-  background-color: #e5e7eb;
-  color: #065f46;
-  transform: translateY(-2px);
-}
-
-.switch-account {
-  position: relative;
-  background-color: #ffffff;
-  cursor: pointer;
-  height: 37.5px;
-  align-self: center;
-  padding: 8px 12px;
-  min-width: 180px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  display: inline-block;
-  z-index: 10;
-}
-
-.switch-account h3 {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #065f46;
-}
-
-.switch-account:hover {
-  background-color: #d1fae5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.account-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  z-index: 1000;
-}
-
-.menu-item {
-  display: block;
-  padding: 12px 16px;
-  font-size: 0.95rem;
-  color: #065f46;
-  text-decoration: none;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.menu-item:hover {
-  background-color: #16a34a;
-  color: #f9fafb;
 }
 
 .account-header {
@@ -458,4 +373,8 @@
 
 .credit-info p:last-child {
   border-bottom: none;
+}
+
+.activity:last-child {
+  margin-bottom: 4rem;
 }

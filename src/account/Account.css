@@ -18,24 +18,25 @@
 .account header {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   margin-bottom: 2rem;
   border: 1px solid inherit;
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   padding: 2rem;
   max-width: webkit-fill-available;
   margin-bottom: 2rem;
-  height: auto; 
-  min-height: 2rem; 
+  height: auto;
+  min-height: 2rem;
   max-height: none;
   overflow: visible;
-  transition: height 0.3s ease; 
+  transition: height 0.3s ease;
   padding-bottom: 2rem;
 }
 
 .account-heading {
   font-size: 2.5rem;
   color: #e5e7eb;
+  padding-top: 2rem;
 }
 
 .credit-score-toggle-btn {
@@ -109,8 +110,8 @@
   background: linear-gradient(135deg, #16a34a 0%, #166534 100%);
   color: white;
   padding: 1rem 2rem;
-  margin: -2rem -2rem 1rem -2rem; 
-  border-radius: 5px 5px 0 0; 
+  margin: -2rem -2rem 1rem -2rem;
+  border-radius: 5px 5px 0 0;
 }
 
 .account-link:hover .account-h2 {
@@ -161,7 +162,8 @@
   display: flex;
   justify-content: space-evenly;
   margin-top: 2rem;
-  padding: 2rem 0;
+  padding: 2.5rem;
+  padding-bottom: 4rem;
 }
 
 .open-another-btn {
@@ -334,7 +336,7 @@
   font-weight: 600;
   font-size: 1.2rem;
   margin: 0.5rem 2rem;
-  border: 2px dashed #16a34a; 
+  border: 2px dashed #16a34a;
   border-radius: 7px;
   background-color: #f0fdf4;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -342,10 +344,10 @@
   height: fit-content;
   width: 100%;
   color: #038831;
-  padding: 2rem; 
+  padding: 2rem;
   cursor: default;
   overflow: hidden;
-  background-color: transparent; 
+  background-color: transparent;
   margin-right: 5rem;
   background-color: #f0fdf4;
   margin-top: 2rem;
@@ -367,7 +369,8 @@
   background: linear-gradient(135deg, #3a985c 0%, #40835b 100%);
 }
 
-.account-link-open:hover, .account-link-open:hover .account-div {
+.account-link-open:hover,
+.account-link-open:hover .account-div {
   background-color: #e5f8ec;
   border-color: #15803d;
 }
