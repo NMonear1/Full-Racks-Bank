@@ -18,7 +18,7 @@ export default function Footer() {
       <div className="footer-container">
         <div className="footer-top">
           <div className="footer-column">
-            <img src="/fullrackslogo.png" alt="FullRacks Bank" className="footer-logo" />
+            <img src="/fullrackslogo.png" className="footer-logo" />
             <p className="footer-description">
               Your trusted financial partner. Banking made simple, secure, and always by your side.
             </p>
@@ -32,10 +32,10 @@ export default function Footer() {
           <div className="footer-column">
             <h3 className="footer-title">Products</h3>
             <ul className="footer-links">
-              <li><Link to={"/account/checking"}>Checking Accounts</Link></li>
-              <li><Link to={"/account/savings"}>Savings & CDs</Link></li>
-              <li><Link to={"/account/creditcard"}>Credit Cards</Link></li>
-              <li><Link to={"/account/loans"}>Loans</Link></li>
+              <li><Link to={"/account"}>Checking Accounts</Link></li>
+              <li><Link to={"/account"}>Savings & CDs</Link></li>
+              <li><Link to={"/account"}>Credit Cards</Link></li>
+              <li><Link to={"/account"}>Loans</Link></li>
             </ul>
           </div>
           <div className="footer-column">
