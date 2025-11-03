@@ -483,6 +483,20 @@ export default function Account() {
                   </div>
                 </div>
               )}
+
+              <div className="account-card-wrapper">
+                <Link to="/stocks" className="account-link">
+                  <div className="account-item">
+                    <h2 className="account-h2">Stocks</h2>
+                    <div className="account-div">
+                      <p className="account-p">
+                        Invest in the stock market and grow your wealth
+                      </p>
+                      <button className="open-account-btn">View Stocks</button>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </ul>
             <div className="open-another-container">
               <button

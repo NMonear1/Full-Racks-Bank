@@ -20,6 +20,7 @@ export default function BankingNavbar() {
     { name: "Checking" },
     { name: "Savings & CDs" },
     { name: "Credit cards" },
+    { name: "Stocks" },
     { name: "Loans" },
   ];
 
