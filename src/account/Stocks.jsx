@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./Stocks.css";
+
 const API_BASE_URL = import.meta.env.VITE_API || "";
 
 
@@ -30,10 +32,8 @@ function Stocks() {
   };
 
   return (
-    <div>
-      <h1>Stocks</h1>
-      <h2>Check a Stock Price</h2>
-
+    <div className = "stocks-container">
+      <h1>Stock Price Checker</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -41,18 +41,22 @@ function Stocks() {
           onChange={(e) => setSymbols(e.target.value)}
           placeholder="Enter stock symbol(s), e.g. AAPL,TSLA"
         />
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className = "get-stock-price-btn">
           {loading ? "Loading..." : "Get Stock Price"}
         </button>
       </form>
 
       {stocks.length > 0 && (
-        <div>
+        <div className="stock-data">
           <h3>Stock Data:</h3>
           <ul>
             {stocks.map((stock) => (
               <li key={stock.ticker}>
                 {stock.ticker}: ${stock.price}
+                {/* Additional stock information can be displayed here */}
+                {/* You can add more details like volume, change, etc. */}
+                <div>Highest Price: {stock.day_high}</div>
+                <div>Price Price: {stock.day_low}</div>
               </li>
             ))}
           </ul>
