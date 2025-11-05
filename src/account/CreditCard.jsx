@@ -47,7 +47,7 @@ export default function CreditCard() {
     // fetchUserAccountsAndCards();
   }, [accountId, token]);
 
-    useEffect(() => {
+  useEffect(() => {
     // Fetch transactions automatically when showTransactions is true
     if (showTransactions) {
       fetchTransactions();
@@ -256,125 +256,125 @@ export default function CreditCard() {
     return labels[type] || type;
   };
 
-const handlePayment = async (e) => {
-  e.preventDefault();
-  setFormError("");
-  setSuccessMessage("");
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    setFormError("");
+    setSuccessMessage("");
 
-  const amount = parseFloat(paymentAmount);
-  if (!amount || amount <= 0) {
-    setFormError("Please enter a valid amount");
-    return;
-  }
-
-  if (amount > creditCard.current_balance) {
-    setFormError("Payment amount cannot exceed current balance");
-    return;
-  }
-
-  setSubmitting(true);
-
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API}/credit_cards/${accountId}/payment`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ amount }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to process payment");
+    const amount = parseFloat(paymentAmount);
+    if (!amount || amount <= 0) {
+      setFormError("Please enter a valid amount");
+      return;
     }
 
-    setSuccessMessage(`Successfully paid ${formatBalance(amount)}`);
-    setPaymentAmount("");
-    await fetchCreditCardData();
-    await fetchTransactions(); // <-- Refresh all transactions
-    await fetchPayments();     // <-- Refresh payments
-    await fetchPurchases();    // <-- Refresh purchases
-
-    setTimeout(() => {
-      setShowPaymentForm(false);
-      setSuccessMessage("");
-    }, 2000);
-  } catch (err) {
-    setFormError(err.message);
-  } finally {
-    setSubmitting(false);
-  }
-};
-
-const handlePurchase = async (e) => {
-  e.preventDefault();
-  setFormError("");
-  setSuccessMessage("");
-
-  const amount = parseFloat(purchaseAmount);
-  if (!amount || amount <= 0) {
-    setFormError("Please enter a valid amount");
-    return;
-  }
-
-  if (!merchant || merchant.trim() === "") {
-    setFormError("Please enter a merchant name");
-    return;
-  }
-
-  const availableCredit =
-    creditCard.credit_limit - creditCard.current_balance;
-  if (amount > availableCredit) {
-    setFormError("Purchase amount exceeds available credit");
-    return;
-  }
-
-  setSubmitting(true);
-
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API}/credit_cards/${accountId}/purchase`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ amount, merchant }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to process purchase");
+    if (amount > creditCard.current_balance) {
+      setFormError("Payment amount cannot exceed current balance");
+      return;
     }
 
-    setSuccessMessage(
-      `Successfully charged ${formatBalance(amount)} at ${merchant}`
-    );
-    setPurchaseAmount("");
-    setMerchant("");
-    await fetchCreditCardData();
-    await fetchTransactions(); // <-- Refresh all transactions
-    await fetchPurchases();    // <-- Refresh purchases
-    await fetchPayments();     // <-- Refresh payments
+    setSubmitting(true);
 
-    setTimeout(() => {
-      setShowPurchaseForm(false);
-      setSuccessMessage("");
-    }, 2000);
-  } catch (err) {
-    setFormError(err.message);
-  } finally {
-    setSubmitting(false);
-  }
-};
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API}/credit_cards/${accountId}/payment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ amount }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to process payment");
+      }
+
+      setSuccessMessage(`Successfully paid ${formatBalance(amount)}`);
+      setPaymentAmount("");
+      await fetchCreditCardData();
+      await fetchTransactions(); // <-- Refresh all transactions
+      await fetchPayments(); // <-- Refresh payments
+      await fetchPurchases(); // <-- Refresh purchases
+
+      setTimeout(() => {
+        setShowPaymentForm(false);
+        setSuccessMessage("");
+      }, 2000);
+    } catch (err) {
+      setFormError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handlePurchase = async (e) => {
+    e.preventDefault();
+    setFormError("");
+    setSuccessMessage("");
+
+    const amount = parseFloat(purchaseAmount);
+    if (!amount || amount <= 0) {
+      setFormError("Please enter a valid amount");
+      return;
+    }
+
+    if (!merchant || merchant.trim() === "") {
+      setFormError("Please enter a merchant name");
+      return;
+    }
+
+    const availableCredit =
+      creditCard.credit_limit - creditCard.current_balance;
+    if (amount > availableCredit) {
+      setFormError("Purchase amount exceeds available credit");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API}/credit_cards/${accountId}/purchase`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ amount, merchant }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to process purchase");
+      }
+
+      setSuccessMessage(
+        `Successfully charged ${formatBalance(amount)} at ${merchant}`
+      );
+      setPurchaseAmount("");
+      setMerchant("");
+      await fetchCreditCardData();
+      await fetchTransactions(); // <-- Refresh all transactions
+      await fetchPurchases(); // <-- Refresh purchases
+      await fetchPayments(); // <-- Refresh payments
+
+      setTimeout(() => {
+        setShowPurchaseForm(false);
+        setSuccessMessage("");
+      }, 2000);
+    } catch (err) {
+      setFormError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const closePaymentForm = () => {
     setShowPaymentForm(false);
@@ -482,9 +482,39 @@ const handlePurchase = async (e) => {
               <h2>Credit Card Activity</h2>
             </header>
             <nav>
-              <button onClick={handleViewTransactions}>All Transactions</button>
-              <button onClick={handleViewPurchases}>Purchases</button>
-              <button onClick={handleViewPayments}>Payments</button>
+              <button
+                onClick={handleViewTransactions}
+                className={showTransactions ? "active-tab" : ""}
+                style={
+                  showTransactions
+                    ? { textDecoration: "underline", fontWeight: 600 }
+                    : {}
+                }
+              >
+                All Transactions
+              </button>
+              <button
+                onClick={handleViewPurchases}
+                className={showPurchases ? "active-tab" : ""}
+                style={
+                  showPurchases
+                    ? { textDecoration: "underline", fontWeight: 600 }
+                    : {}
+                }
+              >
+                Purchases
+              </button>
+              <button
+                onClick={handleViewPayments}
+                className={showPayments ? "active-tab" : ""}
+                style={
+                  showPayments
+                    ? { textDecoration: "underline", fontWeight: 600 }
+                    : {}
+                }
+              >
+                Payments
+              </button>
             </nav>
 
             {showTransactions && (
