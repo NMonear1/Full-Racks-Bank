@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Stocks.css";
+import "../account/Account.css";
 
 const API_BASE_URL = import.meta.env.VITE_API || "";
 
@@ -56,7 +57,7 @@ function Stocks() {
                 {/* Additional stock information can be displayed here */}
                 {/* You can add more details like volume, change, etc. */}
                 <div>Highest Price: {stock.day_high}</div>
-                <div>Price Price: {stock.day_low}</div>
+                <div>Lowest Price: {stock.day_low}</div>
               </li>
             ))}
           </ul>

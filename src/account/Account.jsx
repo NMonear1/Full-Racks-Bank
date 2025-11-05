@@ -485,7 +485,9 @@ export default function Account() {
               )}
 
               <div className="account-card-wrapper">
-                <Link to="/stocks" className="account-link">
+                <Link to="/stocks" className="account-link"
+                style = {{ marginRight: "5rem" }}
+                >
                   <div className="account-item">
                     <h2 className="account-h2">Stocks</h2>
                     <div className="account-div">
