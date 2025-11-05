@@ -378,3 +378,15 @@
 .activity:last-child {
   margin-bottom: 4rem;
 }
+
+.activity nav button  {
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.active-tab {
+  color: green;
+  background: #0ab134;
+  transition: background-color 0.2s;
+}

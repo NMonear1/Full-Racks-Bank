@@ -8,9 +8,22 @@ import Checking from "./account/AccountDetail.jsx";
 import CreditCard from "./account/CreditCard.jsx";
 import Stocks from "./account/Stocks.jsx";
 import Error404 from "./Error404";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 export default function App() {
   return (
+    <>
+      <ScrollToTop />
+
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Welcome />} />
@@ -28,5 +41,6 @@ export default function App() {
         <Route path="*" element={<Error404 />} />
       </Route>
     </Routes>
+  </>
   );
 }

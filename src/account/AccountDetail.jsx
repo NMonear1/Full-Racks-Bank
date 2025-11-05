@@ -49,7 +49,7 @@ export default function AccountInfo() {
     fetchUserAccounts();
   }, [accountId, token]);
 
-    useEffect(() => {
+  useEffect(() => {
     // Fetch transactions automatically when showTransactions is true
     if (showTransactions) {
       fetchTransactions();
@@ -533,9 +533,39 @@ export default function AccountInfo() {
               <h2>Activity</h2>
             </header>
             <nav>
-              <button onClick={handleViewTransactions}>Transactions</button>
-              <button onClick={handleViewWithdrawals}>Withdrawals</button>
-              <button onClick={handleViewDeposits}>Deposits</button>
+              <button
+                onClick={handleViewTransactions}
+                className={showTransactions ? "active-tab" : ""}
+                style={
+                  showTransactions
+                    ? { textDecoration: "underline", fontWeight: 600 }
+                    : {}
+                }
+              >
+                Transactions
+              </button>
+              <button
+                onClick={handleViewWithdrawals}
+                className={showWithdrawals ? "active-tab" : ""}
+                style={
+                  showWithdrawals
+                    ? { textDecoration: "underline", fontWeight: 600 }
+                    : {}
+                }
+              >
+                Withdrawals
+              </button>
+              <button
+                onClick={handleViewDeposits}
+                className={showDeposits ? "active-tab" : ""}
+                style={
+                  showDeposits
+                    ? { textDecoration: "underline", fontWeight: 600 }
+                    : {}
+                }
+              >
+                Deposits
+              </button>
             </nav>
 
             {showTransactions && (

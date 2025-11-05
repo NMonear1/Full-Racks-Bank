@@ -158,10 +158,10 @@ export default function BankingNavbar() {
             {token && (
               <>
                 <span className="welcome-text">
-                  Welcome {userData?.firstname}
+                  Welcome, {userData?.firstname}
                 </span>
                 <NavLink to="/account" className="account-navlink">
-                  My Account
+                  My Accounts
                 </NavLink>
                 {token &&
                   (userAccounts.length > 0 || creditCards.length > 0) && (
@@ -175,7 +175,7 @@ export default function BankingNavbar() {
                       }}
                     >
                       <h3 style={{ cursor: "pointer", margin: 0 }}>
-                        Switch Account
+                        Select Account
                       </h3>
                       {showAccountMenu && (
                         <div className="account-menu">
